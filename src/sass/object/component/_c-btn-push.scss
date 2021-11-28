@@ -1,0 +1,28 @@
+.c-btn-push {
+  display: inline-block;
+  padding: rem(20) rem(105);
+  background-color: $CTA-btn;
+  color: $CTA-btn-shadow;
+  font-size: rem(24);
+  font-weight: $bold;
+  line-height: 1.3333;
+  border: 5px solid $CTA-btn-shadow;
+  border-bottom: 15px solid $CTA-btn-shadow;
+  border-radius: 100px;
+  // filter: drop-shadow(0px 10px 0px $CTA-btn-shadow);
+  transition: all 0.3s;
+  @include mq() {
+    padding: rem(15) rem(60);
+    border-bottom: 5px solid $CTA-btn-shadow;
+  }
+}
+
+.c-btn-push:hover {
+  margin-top: rem(10);
+  border-bottom: 5px solid $CTA-btn-shadow;
+  // filter: drop-shadow(0px 0px 0px $CTA-btn-shadow);
+}
+
+.c-btn-push:active {
+  transform: translateY(4px); /*下に動く*/
+}

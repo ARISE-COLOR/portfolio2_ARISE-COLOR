@@ -1,0 +1,10 @@
+.p-g-nav__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.p-g-nav__item + .p-g-nav__item {
+  margin-left: rem(40);
+  margin-left: rem(40);
+}

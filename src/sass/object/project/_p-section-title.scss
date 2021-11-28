@@ -1,0 +1,82 @@
+.p-section-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-section-title__en {
+  text-transform: uppercase;
+  font-size: rem(150);
+  font-weight: $bold;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  @include mq() {
+    font-size: rem(60);
+    text-align: center;
+  }
+}
+
+.p-section-title__en--lato {
+  font-family: $sub-font-family;
+}
+
+.p-section-title__en--black {
+  color: rgba($color: $title-black-color, $alpha: 0.5);
+}
+
+.p-section-title__en--white05 {
+  color: rgba($color: $title-white-color, $alpha: 0.05);
+}
+
+.p-section-title__en--white15 {
+  color: rgba($color: $title-white-color, $alpha: 0.15);
+}
+
+.p-section-title__en--white20 {
+  color: rgba($color: $title-white-color, $alpha: 0.2);
+}
+
+.p-section-title__en--glay {
+  color: $CHECK-IT-OUT-title-color;
+}
+
+.p-section-title__en--right {
+  text-align: end;
+  @include mq() {
+    text-align: center;
+  }
+}
+
+.p-section-title__en--center {
+  text-align: center;
+}
+
+.p-section-title__jp {
+  font-size: rem(48);
+  font-weight: $bold;
+  line-height: 1;
+  letter-spacing: 0.05em;
+  margin-top: rem(-3);
+  @include mq() {
+    font-size: rem(30);
+  }
+}
+
+.p-section-title__jp--left {
+  text-align: left;
+  @include mq() {
+    text-align: center;
+  }
+}
+
+.p-section-title__jp--center {
+  text-align: center;
+}
+
+.p-section-title__jp--lato {
+  font-family: $sub-font-family;
+  text-transform: capitalize;
+}
+
+.p-section-title__jp--black {
+  color: $CHECK-IT-OUT-subtitle-color;
+}

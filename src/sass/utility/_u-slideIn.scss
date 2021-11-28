@@ -1,0 +1,20 @@
+.u-slideIn {
+  margin-left: -100vw;
+}
+
+@keyframes slideInAnime{
+  from {
+    margin-left: -100vw;
+  }
+
+  to {
+    margin-left: initial;
+  }
+}
+
+.u-slideIn-active {
+  animation-name: slideInAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+  animation-timing-function: ease-out;
+}

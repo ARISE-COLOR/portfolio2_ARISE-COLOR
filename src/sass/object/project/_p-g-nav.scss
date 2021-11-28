@@ -1,0 +1,45 @@
+.p-g-nav {
+  height: inherit;
+  @include mq() {
+    text-align: center;
+  }
+}
+
+.p-g-nav__items {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  @include mq() {
+    display: inline-block;
+  }
+}
+
+.p-g-nav__item + .p-g-nav__item {
+  margin-left: rem(40);
+  @include mq() {
+    margin-left: initial;
+  }
+}
+
+.p-g-nav__item {
+  height: inherit;
+}
+
+.p-g-nav__item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // padding: rem(5) 0;
+  font-size: rem(16);
+  font-weight: $normal;
+  line-height: 2;
+}
+
+.p-g-nav__item--normal a {
+  height: inherit;
+}
+
+.p-g-nav__item--normal a:hover {
+  opacity: 0.6;
+}

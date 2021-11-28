@@ -1,0 +1,43 @@
+.p-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: $layer-modal;
+  background-color: rgba($color: $background-color, $alpha: 1.0);
+}
+
+.p-header__inner {
+  height: rem(100);
+  display: flex;
+  justify-content: space-between;
+  @include mq() {
+    height: rem(50);
+    position: relative;
+  }
+}
+
+.p-header__title {
+  height: inherit;
+  display: inline-block;
+  z-index: $layer-modal;
+}
+
+.p-header__logo {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.p-header__logo img {
+  max-width: rem(200);
+  width: 100%;
+  @include mq() {
+    max-width: rem(100);
+  }
+}
+
+.p-header__menu {
+  z-index: $layer-modal;
+}

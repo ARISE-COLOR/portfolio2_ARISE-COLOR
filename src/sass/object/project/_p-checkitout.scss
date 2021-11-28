@@ -1,0 +1,82 @@
+.p-checkitout {
+  background-color: $CHECK-IT-OUT-background-color;
+  position: relative;
+  z-index: $layer-background;
+}
+
+
+.p-checkitout::after {
+  background-color: $background-reversal-color;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: 69.444444%;
+  z-index: $layer-background-cover;
+}
+
+.p-checkitout__inner {
+  padding-bottom: rem(145);
+  @include mq() {
+    padding-bottom: rem(80);
+  }
+}
+
+.p-checkitout__body {
+  margin-top: rem(60);
+  max-width: rem(1200);
+  width: 100%;
+  margin-left: auto;
+  padding-left: rem(25);
+  @include mq() {
+    max-width: rem(600);
+    // padding-left: 0;
+  }
+}
+
+.p-checkitout__items {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  @include mq() {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.p-checkitout__item {
+  max-width: rem(300);
+  width: 100%;
+}
+
+.p-checkitout__img {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 100%;
+}
+
+
+.p-checkitout__img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.p-checkitout__btn {
+  color: $CHECK-IT-OUT-subtitle-color;
+  position: relative;
+  width: rem(220);
+  margin-top: rem(58);
+  margin-right: rem(80);
+  margin-left: auto;
+  @include mq() {
+    margin-right: rem(30);
+  }
+}
+
+

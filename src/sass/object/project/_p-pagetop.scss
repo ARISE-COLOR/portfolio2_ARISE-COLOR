@@ -1,0 +1,23 @@
+.p-pagetop {
+  position: fixed;
+  right: rem(40);
+  bottom: rem(25);
+  z-index: $layer-floating;
+  transition: all .3s ease;
+  width: rem(150);
+  cursor: pointer;
+  animation:floating 5s infinite linear normal;
+  @include mq() {
+    right: rem(5);
+    bottom: rem(15);
+    width: rem(80);
+  }
+}
+
+@keyframes floating {
+  0% {transform:translate(0, 0) rotate(-5deg);}
+  25% {transform:translate(0, -5px) rotate(0deg);}
+  50% {transform:translate(0, 0)rotate(5deg);}
+  75% {transform: translate(0, 5px) rotate(0deg);}
+  100% {transform:translate(0, 0) rotate(-5deg);}
+  }

@@ -1,0 +1,39 @@
+.c-btn-line {
+  display: inline-block;
+  font-size: rem(18);
+  font-weight: $bold;
+  line-height: 0.8888;
+  padding: rem(8) rem(10);
+  width: inherit;
+}
+
+.c-btn-line::before {
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 0;
+  width: inherit;
+  height: 2px;
+  background-color: $CHECK-IT-OUT-subtitle-color;
+  transition: all .3s;
+}
+
+.c-btn-line:hover::before {
+  width: 110%;
+}
+
+.c-btn-line::after {
+  position: absolute;
+  content: "";
+  bottom: 6px;
+  right: 0;
+  width: 15px;
+  height: 2px;
+  background-color: $CHECK-IT-OUT-subtitle-color;
+  transform: rotate(45deg);
+  transition: all .3s;
+}
+
+.c-btn-line:hover::after {
+  right: -10%;
+}

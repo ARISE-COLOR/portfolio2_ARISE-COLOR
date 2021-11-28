@@ -1,0 +1,70 @@
+.p-main-visual {
+  background-image: url(../images/common/mv-bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  @include mq() {
+    background-position: right 35% bottom 50%;
+  }
+}
+
+.p-main-visual__inner {
+  position: relative;
+  height: (900 / 1440) * 100vw;
+  @include mq() {
+    height: 100vh;
+  }
+}
+
+.p-main-visual__body {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-25%);
+
+}
+
+.p-main-visual__title {
+  background: linear-gradient(to right, $main-title-color-left, $main-title-color-right);
+  font-size: rem(64);
+  font-weight: $bold;
+  line-height: 0.9375;
+  letter-spacing: 0.05em;
+  padding: rem(32) rem(30);
+  display: inline-block;
+  @include mq() {
+    font-size: rem(28);
+    padding: rem(10);
+  }
+}
+
+.p-main-visual__title span {
+  letter-spacing: -0.41em;
+}
+
+.p-main-visual__quotations {
+  margin-top: rem(40);
+  font-size: rem(24);
+  font-weight: $bold;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  @include mq() {
+    margin-top: rem(20);
+    font-size: rem(18);
+  }
+}
+
+.p-main-visual__quotations span {
+  display: inline-block;
+}
+
+.p-main-visual__author {
+  margin-top: rem(9);
+  font-size: rem(24);
+  letter-spacing: 0em;
+  font-family: $author-font-family;
+  @include mq() {
+    margin-top: rem(8);
+    font-size: rem(18);
+  }
+}
+

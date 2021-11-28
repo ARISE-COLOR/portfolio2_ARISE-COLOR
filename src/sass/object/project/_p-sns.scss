@@ -1,0 +1,16 @@
+.p-sns {}
+
+.p-sns__items {
+  display: flex;
+  justify-content: center;
+}
+
+.p-sns__item {
+  width: rem(40);
+  height: rem(40);
+
+}
+
+.p-sns__item + .p-sns__item {
+  margin-left: rem(20);
+}

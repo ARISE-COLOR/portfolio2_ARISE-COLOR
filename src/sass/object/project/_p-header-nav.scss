@@ -1,0 +1,79 @@
+.p-header-nav {
+  @include mq() {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 0;
+    z-index: $layer-background;
+    opacity: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background-color: rgba($color: $background-color, $alpha: 0.8);
+    transition: opacity .3s ease;
+    // margin: 0 calc(50% - 50vw);
+    overflow: hidden;
+  }
+}
+
+.p-header-nav.is-open {
+  height: 100vh;
+  z-index: $layer-drawer;
+  opacity: 1;
+}
+
+.p-header-nav.is-open .p-header-nav__items {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.p-header-nav__items {
+  @include mq() {
+    height: initial;
+    position: fixed;
+    top: 50%;
+    left: -100%;
+    width: 100%;
+  }
+}
+
+.p-header-nav__items li {
+  @include mq() {
+    padding: rem(20) 0;
+  }
+}
+
+// ヘッダーメニューの現在地ハイライト(まだ未実装)
+// .p-header-nav__items li.current a {
+//   border-bottom: 1px solid red;
+//   @include mq() {
+   
+//   }
+// }
+
+.p-header-nav__contact {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include mq() {
+    margin-top: rem(10);
+  }
+}
+
+.p-header-nav__contact a {
+  background-color: $CTA-btn;
+  color: $CTA-btn-shadow;
+  border: 5px solid $CTA-btn-shadow;
+  border-radius: 100px;
+  padding: rem(20) rem(60);
+  font-size: rem(18);
+  font-weight: $bold;
+  line-height: 0.8888;
+}
+
+.p-header-nav__contact a:active {
+  transform: translateY(3px); /*下に動く*/
+}
+

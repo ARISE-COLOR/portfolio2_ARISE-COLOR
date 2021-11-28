@@ -1,0 +1,13 @@
+.c-btn-contact {
+  background-color: $contactForm-contact-btn;
+  color: $text-color;
+  padding: rem(20) rem(140);
+  border-radius: 100px;
+  font-size: rem(24);
+  font-weight: $bold;
+  line-height: 1.3333;
+  @include mq() {
+    padding: rem(20) rem(60);
+    font-size: rem(20);
+  }
+}

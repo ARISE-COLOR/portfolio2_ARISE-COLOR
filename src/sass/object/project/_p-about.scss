@@ -1,0 +1,60 @@
+.p-about {
+  background-image: url(../images/common/about-bg.jpg);
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.p-about__inner {
+  padding-bottom: rem(145);
+  @include mq() {
+    padding-bottom: rem(80);
+  }
+}
+
+.p-about__items li:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.p-about ol {
+  counter-reset: number;
+}
+
+.p-about li {
+  position: relative;
+}
+
+.p-about li::after {
+  position: absolute;
+  top: rem(-60);
+  padding: 0 rem(10);
+  width: rem(160);
+  text-align: center;
+  counter-increment: number;
+  content: counter(number, upper-roman);
+  font-size: rem(120);
+  font-weight: $bold;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-family: $number-font-family;
+  transform: matrix(0.96, 0, -0.32, 1, 0, 0);
+  text-shadow: 4px 4px 10px rgba($color: $title-black-color, $alpha: 0.25);
+  background: linear-gradient($number-gradient-color1,$number-gradient-color2,$number-gradient-color1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  @include mq() {
+    top: rem(-40);
+    width: rem(120);
+    font-size: rem(80);
+    margin-left: calc(50% - 50vw);
+  }
+}
+
+.p-about li:nth-child(even)::after{
+  right: 0;
+  @include mq() {
+    right: initial;
+  }
+}

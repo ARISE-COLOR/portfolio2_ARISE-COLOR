@@ -1,0 +1,155 @@
+.p-recuruit {
+background-image: url(../images/common/recuruit-bg.jpg);
+width: 100%;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: center;
+
+}
+
+.p-recuruit__inner {
+  text-align: center;
+  padding-bottom: rem(145);
+  @include mq() {
+    padding-bottom: rem(80);
+  }
+}
+
+.p-recuruit__textblock {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-top: rem(80);
+  @include mq() {
+    // padding: rem(30);
+  }
+}
+
+.p-recuruit__textblock::before,
+.p-recuruit__textblock::after {
+  content: "";
+  width: rem(70);
+  height: 0;
+  background-color: $text-color;
+  position: absolute;
+  top: 50%;
+  border:2px solid #FFFFFF;
+}
+
+.p-recuruit__textblock::before {
+  left: -10%;
+  transform: rotate(60deg);
+  @include mq() {
+    left: -20%;
+  }
+}
+
+.p-recuruit__textblock::after {
+  right: -10%;
+  transform: rotate(-60deg);
+  @include mq() {
+    right: -20%;
+  }
+}
+
+.p-recuruit__text {
+  font-size: rem(20);
+  line-height: 1.5;
+}
+
+.p-recuruit__text span{
+  display: inline-block;
+  @include mq() {
+    display: block;
+  }
+}
+
+.p-recuruit__text--en {
+  font-family: $sub-font-family;
+}
+
+.p-recuruit__img {
+  position: relative;
+  max-width: rem(600);
+  width: 100%;
+  margin: 0 auto;
+}
+.p-recuruit__img::before {
+  content: "";
+  display: block;
+  padding-top: 41.666666666%;
+}
+
+.p-recuruit__img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.p-recuruit__form {
+  background-color: $background-reversal-color;
+  border: 10px solid $RECURUIT-border-color;
+  border-radius: 10px;
+  max-width: rem(750);
+  margin: 0 auto;
+  color: $text-reversal-color;
+  padding: rem(60) 0;
+  @include mq() {
+    border: 5px solid $RECURUIT-border-color;
+    padding: rem(30) 0;
+  }
+}
+
+.p-recuruit__form dl {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: rem(460);
+  width: 100%;
+  margin: 0 auto;
+  text-align: start;
+  font-size: rem(16);
+  font-weight: $regular;
+  line-height: 1.171875;
+  font-family: $recuruit-font-family;
+  @include mq() {
+    display: block;
+    padding: 0 rem(15);
+  }
+}
+
+
+.p-recuruit__form dt {
+  width: 28%;
+  @include mq() {
+    width: 100%;
+  }
+}
+
+.p-recuruit__form dt:nth-of-type(n+2) {
+  margin-top: rem(50);
+}
+
+
+.p-recuruit__form dd {
+  width: 72%;
+  @include mq() {
+    width: 100%;
+    margin-top: rem(10);
+    margin-left: rem(10);
+  }
+ }
+
+.p-recuruit__form dd:nth-of-type(n+2) {
+  margin-top: rem(50);
+  @include mq() {
+    margin-top: rem(10);
+  }
+}
+
+.p-recuruit__btn {
+  margin-top: rem(60);
+}

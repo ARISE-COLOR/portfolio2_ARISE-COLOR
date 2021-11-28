@@ -1,0 +1,21 @@
+/* FontFamily */
+$base-font-family: 'Noto Sans JP', sans-serif;
+$sub-font-family: 'Lato', sans-serif;
+$recuruit-font-family: 'Roboto', sans-serif;
+$number-font-family: 'Noto Serif JP', serif;
+$author-font-family: 'MV Boli', serif;
+
+/* font-weight */
+$regular: 400;
+$normal: 500;
+$bold: 700;
+$icon: 900;
+
+/* ベースフォントウェイト */
+$font-weight-base: $normal; // ベースフォントウェイト
+
+/* ベース行間 */
+$lh: 1.6;
+
+/* ベースletter-spacing */
+$ls: 0.02em;
