@@ -1270,6 +1270,12 @@ select::-ms-expand {
   }
 }
 
+@media screen and (max-width: 767px) {
+  .p-g-nav__items li {
+    padding: 1.25rem 0;
+  }
+}
+
 .p-g-nav__item + .p-g-nav__item {
   margin-left: 40px;
   margin-left: 2.5rem;
@@ -1350,12 +1356,6 @@ select::-ms-expand {
     top: 50%;
     left: -100%;
     width: 100%;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .p-header-nav__items li {
-    padding: 1.25rem 0;
   }
 }
 

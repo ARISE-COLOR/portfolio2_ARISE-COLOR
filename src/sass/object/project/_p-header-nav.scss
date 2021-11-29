@@ -39,11 +39,7 @@
   }
 }
 
-.p-header-nav__items li {
-  @include mq() {
-    padding: rem(20) 0;
-  }
-}
+
 
 // ヘッダーメニューの現在地ハイライト(まだ未実装)
 // .p-header-nav__items li.current a {

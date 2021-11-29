@@ -65,16 +65,6 @@ jQuery(function ($) { // この中であればWordpressでも「$」が使用可
     return false;
   });
 
-/*********************************************************
- * 応募フォームの同意チェックボックスをクリックした際のボタン制御処理
-*********************************************************/
-  $('[id="contact-privacy"]').click(function () {
-    if ($('input[id="contact-privacy"]:checked').val()) {
-      $('[name="contact-submit"]').prop("disabled", false);
-    } else {
-      $('[name="contact-submit"]').prop("disabled", true);
-    }
-  });
 
 /*********************************************************
  * スムーススクロール
@@ -300,3 +290,30 @@ accordionsArr.forEach((accordion) => {
     });
   });
 });
+
+
+/*********************************************************
+ * 応募フォームの送信ボタンの非活性制御
+*********************************************************/
+const $form = document.getElementById('form');
+const $submit = document.getElementById('contact-submit');
+
+$form.addEventListener('change', update);
+$form.addEventListener('input', update);
+
+// submitイベントで送信制御
+$form.addEventListener('submit', (e) => {
+  e.preventDefault();
+});
+
+function update(e) {
+  // バリデーションが総合的に通っているかどうかのフラグ
+  const isValid = $form.checkValidity();
+  
+  if (isValid) {  // 通っていれば活性化
+    $submit.removeAttribute('disabled');
+    return;
+  }
+  // 通っていなければ非活性にする
+  $submit.setAttribute('disabled', 'disabled');
+}
