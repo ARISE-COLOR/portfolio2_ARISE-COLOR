@@ -296,12 +296,166 @@ accordionsArr.forEach(function (accordion) {
     });
   });
 });
-/*********************************************************
- * 応募フォームの送信ボタンの非活性制御
-*********************************************************/
+/****************************************************************
+ * 応募フォームのバリデーションチェック＆送信ボタンの非活性制御
+*****************************************************************/
 
 var $form = document.getElementById('form');
 var $submit = document.getElementById('contact-submit');
+/* form element */
+
+var $form_name = $form.elements['_name'];
+var $form_ruby = $form.elements['_ruby'];
+var $form_DOB = $form.elements['_DOB'];
+var $form_email = $form.elements['_email'];
+var $form_address = $form.elements['_address'];
+/* error element */
+
+var $error_name = document.getElementById("error_name");
+var $error_ruby = document.getElementById("error_ruby");
+var $error_DOB = document.getElementById("error_DOB");
+var $error_email = document.getElementById("error_email");
+var $error_address = document.getElementById("error_address");
+/* バリデーションパターン */
+
+var rubyValid = /^[ァ-ヶー　]+$/; //フリガナ
+
+var emailValid = /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/; //メールアドレス
+
+/*--------------------------------
+ * お名前バリデーションチェック
+--------------------------------*/
+
+$form_name.addEventListener('change', function (e) {
+  $form_name.setCustomValidity('');
+  $form_name.classList.remove("is-error");
+
+  if ($form_name.value == "") {
+    $form_name.setCustomValidity('お名前が入力されていません。');
+    $form_name.classList.add("is-error");
+  }
+
+  $error_name.innerHTML = $form_name.validationMessage;
+});
+/* リアルタイムチェック(入力中はエラーを消す) */
+
+$form_name.addEventListener('input', function (e) {
+  $form_name.setCustomValidity('');
+
+  if ($form_name.value == "") {
+    $form_name.setCustomValidity(' ');
+    $form_name.classList.add("is-error");
+  } else {
+    $form_name.classList.remove("is-error");
+  }
+
+  $error_name.innerHTML = $form_name.validationMessage;
+});
+/*--------------------------------
+ * フリガナバリデーションチェック
+--------------------------------*/
+
+/* 入力後チェック */
+
+$form_ruby.addEventListener('change', function (e) {
+  $form_ruby.setCustomValidity('');
+  $form_ruby.classList.remove("is-error");
+
+  if ($form_ruby.value == "") {
+    $form_ruby.setCustomValidity('フリガナが入力されていません。');
+    $form_ruby.classList.add("is-error");
+  } else if (!rubyValid.test($form_ruby.value)) {
+    $form_ruby.setCustomValidity('全角カタカナで入力してください。');
+    $form_ruby.classList.add("is-error");
+  }
+
+  $error_ruby.innerHTML = $form_ruby.validationMessage;
+});
+/* リアルタイムチェック(入力中はエラーを消す) */
+
+$form_ruby.addEventListener('input', function (e) {
+  $form_ruby.setCustomValidity('');
+
+  if ($form_ruby.value == "") {
+    $form_ruby.setCustomValidity(' ');
+    $form_ruby.classList.add("is-error");
+  } else {
+    $form_ruby.classList.remove("is-error");
+  }
+
+  $error_ruby.innerHTML = $form_ruby.validationMessage;
+});
+/*--------------------------------
+ * メールアドレスバリデーションチェック
+--------------------------------*/
+
+/* 入力後チェック */
+
+$form_email.addEventListener('change', function (e) {
+  $form_email.setCustomValidity('');
+  $form_email.classList.remove("is-error");
+
+  if ($form_email.value == "") {
+    $form_email.setCustomValidity('メールアドレスが入力されていません。');
+    $form_email.classList.add("is-error");
+  } else if (!emailValid.test($form_email.value)) {
+    if (!e.target.validationMessage) {
+      $form_email.setCustomValidity('メールアドレスの形式で入力されておりません。');
+    }
+
+    $form_email.classList.add("is-error");
+  }
+
+  $error_email.innerHTML = $form_email.validationMessage;
+});
+/* リアルタイムチェック(入力中はエラーを消す) */
+
+$form_email.addEventListener('input', function (e) {
+  $form_email.setCustomValidity('');
+
+  if ($form_email.value == "") {
+    $form_email.setCustomValidity(' ');
+    $form_email.classList.add("is-error");
+  } else {
+    $form_email.setCustomValidity(' ');
+    $form_email.classList.remove("is-error");
+  }
+
+  $error_email.innerHTML = $form_email.validationMessage;
+});
+/*--------------------------------
+ * ご住所バリデーションチェック
+--------------------------------*/
+
+$form_address.addEventListener('change', function (e) {
+  $form_address.setCustomValidity('');
+  $form_address.classList.remove("is-error");
+
+  if ($form_address.value == "") {
+    $form_address.setCustomValidity('ご住所が入力されていません。');
+    $form_address.classList.add("is-error");
+  }
+
+  $error_address.innerHTML = $form_address.validationMessage;
+});
+/* リアルタイムチェック(入力中はエラーを消す) */
+
+$form_address.addEventListener('input', function (e) {
+  $form_address.setCustomValidity('');
+
+  if ($form_address.value == "") {
+    $form_address.setCustomValidity(' ');
+    $form_address.classList.add("is-error");
+  } else {
+    $form_address.classList.remove("is-error");
+  }
+
+  $error_address.innerHTML = $form_address.validationMessage;
+});
+/*--------------------------------
+ * 送信ボタンの非活性制御
+--------------------------------*/
+
 $form.addEventListener('change', update);
 $form.addEventListener('input', update); // submitイベントで送信制御
 

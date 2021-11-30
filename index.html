@@ -48,8 +48,8 @@
 
       <!-- ドロワーメニュー -->
       <div class="p-header__menu u-pc-hidden">
-        <button class="p-drawer-menu js-drawer" aria-label="メニュー" aria-controls="g-nav" aria-expanded="false" tabindex="1"
-          accesskey="m">
+        <button class="p-drawer-menu js-drawer" aria-label="メニュー" aria-controls="g-nav" aria-expanded="false"
+          tabindex="1" accesskey="m">
           <span></span>
           <span></span>
           <span></span>
@@ -349,35 +349,46 @@
                 <span class="p-contact__required">必須</span>
               </label>
               <input type="text" id="name" name="_name" required="required" placeholder="お名前をご記入ください">
+              <div id="error_name" class="p-contact__error"></div>
             </div>
+
             <div class="p-contact__item p-contact__item--input">
               <label for="ruby">
                 フリガナ
                 <span class="p-contact__required">必須</span>
               </label>
-              <input type="text" id="ruby" name="_ruby" required="required" pattern="[\u30A1-\u30FF]*" placeholder="フリガナをご記入ください">
+              <input type="text" id="ruby" name="_ruby" required="required" placeholder="フリガナをご記入ください">
+              <div id="error_ruby" class="p-contact__error"></div>
             </div>
+
+
             <div class="p-contact__item p-contact__item--input">
               <label for="DOB">
                 生年月日
                 <span class="p-contact__required">必須</span>
               </label>
               <input type="date" id="DOB" name="_DOB" required="required" placeholder="生年月日をご記入ください">
+              <div id="error_DOB" class="p-contact__error"></div>
             </div>
+
             <div class="p-contact__item p-contact__item--input">
               <label for="email">
                 メールアドレス
                 <span class="p-contact__required">必須</span>
               </label>
               <input type="email" id="email" name="_email" required="required" placeholder="メールアドレスをご記入ください">
+              <div id="error_email" class="p-contact__error"></div>
             </div>
+
             <div class="p-contact__item p-contact__item--input">
               <label for="address">
                 ご住所
                 <span class="p-contact__required">必須</span>
               </label>
               <input type="text" id="address" name="_address" required="required" placeholder="ご住所をご記入ください">
+              <div id="error_address" class="p-contact__error"></div>
             </div>
+
             <div class="p-contact__item p-contact__item--textarea">
               <label for="content">ご質問など</label>
               <textarea id="content" name="_content" placeholder="ご質問などがあればご記入ください"></textarea>
@@ -385,14 +396,18 @@
 
             <div class="p-contact__footer">
               <div class="p-contact__privacy">
-                <input type="checkbox" id="contact-privacy" name="contact-privacy" required value="プライバシーポリシーに同意する"><label
-                  for="contact-privacy" class="p-contact__privacylabel">プライバシーポリシーに同意する</label>
+                <input type="checkbox" id="contact-privacy" name="contact-privacy" required
+                  value="プライバシーポリシーに同意する"><label for="contact-privacy"
+                  class="p-contact__privacylabel">プライバシーポリシーに同意する</label>
               </div>
+
               <div class="p-contact__btn">
                 <input type="submit" id="contact-submit" name="_contact-submit" class="c-btn-contact" value="送信する"
                   disabled>
               </div>
+
             </div>
+
           </form>
         </div>
       </div>

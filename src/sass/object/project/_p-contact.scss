@@ -76,6 +76,7 @@
 .p-contact__item {
   display: flex;
   justify-content: space-between;
+  position: relative;
   @include mq() {
     display: block;
   }
@@ -122,6 +123,9 @@
   }
 }
 
+.p-contact__item input.is-error {
+  border: 1px solid red;
+}
 
 .p-contact__item input::placeholder,
 .p-contact__item textarea::placeholder {
@@ -135,6 +139,20 @@
 .p-contact__item--textarea label {
   margin-top: rem(10);
 }
+
+.p-contact__item .p-contact__error {
+  position: absolute;
+  bottom: rem(-20);
+  right: 0;
+}
+
+.p-contact__error {
+  font-size: rem(12);
+  color: $contactForm-required-color;
+}
+
+
+
 
 .p-contact__footer {
   text-align: center;
