@@ -11,6 +11,8 @@
   padding-bottom: rem(150);
   padding-right: $padding-pc;
   padding-left: $padding-pc;
+  margin-left: auto;
+  margin-right: auto;
 
   @include mq("md") {
     max-width: rem(600);

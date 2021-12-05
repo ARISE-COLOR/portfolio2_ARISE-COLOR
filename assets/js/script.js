@@ -64,18 +64,16 @@ jQuery(function ($) {
   /*********************************************************
    * スムーススクロール
   *********************************************************/
+  // $(document).on('click', 'a[href*="#"]', function () {
+  //   let time = 900;
+  //   let header = $('header').innerHeight();
+  //   let target = $(this.hash);
+  //   if (!target.length) return;
+  //   let targetY = target.offset().top - header;
+  //   $('html,body').animate({ scrollTop: targetY }, time, 'swing');
+  //   return false;
+  // });
 
-  $(document).on('click', 'a[href*="#"]', function () {
-    var time = 400;
-    var header = $('header').innerHeight();
-    var target = $(this.hash);
-    if (!target.length) return;
-    var targetY = target.offset().top - header;
-    $('html,body').animate({
-      scrollTop: targetY
-    }, time, 'swing');
-    return false;
-  });
   /*********************************************************
    * メインビジュアルの看板スライドイン
   *********************************************************/
@@ -187,9 +185,40 @@ jQuery(function ($) {
   }
 });
 /*********************************************************
+ * スムーススクロール
+*********************************************************/
+// すべての（href="#~"）のaタグを取得
+
+var smoothScrollTrigger = document.querySelectorAll('a[href^="#"]'); //取得したaタグそれぞれにクリックイベントを付与
+
+var _loop = function _loop(i) {
+  smoothScrollTrigger[i].addEventListener('click', function (e) {
+    e.preventDefault();
+    var href = smoothScrollTrigger[i].getAttribute('href');
+    var targetElement = document.getElementById(href.replace('#', ''));
+    var rect = targetElement.getBoundingClientRect().top; //ブラウザからの高さを取得
+
+    var offset = window.pageYOffset;
+    var headerH = document.getElementById('header'); //ヘッダーの高さを取得
+
+    var gap = headerH.offsetHeight;
+    var target = rect + offset - gap; //スムーススクロール
+
+    window.scrollTo({
+      top: target,
+      behavior: 'smooth'
+    });
+  });
+};
+
+for (var i = 0; i < smoothScrollTrigger.length; i++) {
+  _loop(i);
+}
+/*********************************************************
  * Q＆A アコーディオン
 *********************************************************/
 // 要素をスライドしながら非表示にする関数(jQueryのslideUpと同じ)
+
 
 var slideUp = function slideUp(el) {
   var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 300;

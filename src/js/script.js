@@ -69,15 +69,15 @@ jQuery(function ($) { // この中であればWordpressでも「$」が使用可
 /*********************************************************
  * スムーススクロール
 *********************************************************/
-  $(document).on('click', 'a[href*="#"]', function () {
-    let time = 400;
-    let header = $('header').innerHeight();
-    let target = $(this.hash);
-    if (!target.length) return;
-    let targetY = target.offset().top - header;
-    $('html,body').animate({ scrollTop: targetY }, time, 'swing');
-    return false;
-  });
+  // $(document).on('click', 'a[href*="#"]', function () {
+  //   let time = 900;
+  //   let header = $('header').innerHeight();
+  //   let target = $(this.hash);
+  //   if (!target.length) return;
+  //   let targetY = target.offset().top - header;
+  //   $('html,body').animate({ scrollTop: targetY }, time, 'swing');
+  //   return false;
+  // });
 
 
 /*********************************************************
@@ -180,6 +180,40 @@ function ScrollAnime() {//スクロールした際のナビゲーションの関
 
 
 });
+
+
+
+
+/*********************************************************
+ * スムーススクロール
+*********************************************************/
+// すべての（href="#~"）のaタグを取得
+const smoothScrollTrigger = document.querySelectorAll('a[href^="#"]');
+
+//取得したaタグそれぞれにクリックイベントを付与
+for (let i = 0; i < smoothScrollTrigger.length; i++) {
+  smoothScrollTrigger[i].addEventListener('click', (e) => {
+    e.preventDefault();
+    let href = smoothScrollTrigger[i].getAttribute('href');
+    let targetElement = document.getElementById(href.replace('#', ''));
+
+    const rect = targetElement.getBoundingClientRect().top; //ブラウザからの高さを取得
+    const offset = window.pageYOffset;
+    var headerH = document.getElementById('header'); //ヘッダーの高さを取得
+    const gap = headerH.offsetHeight;
+    const target = rect + offset - gap;
+
+    //スムーススクロール
+    window.scrollTo ({
+      top: target,
+      behavior: 'smooth',
+    });
+
+  });
+
+
+
+}
 
 
 
