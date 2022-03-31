@@ -1,0 +1,165 @@
+// 入力フォーム
+.p-contactForm-input {
+  max-width: rem(612);
+  width: 100%;
+  margin: rem(40) auto 0;
+}
+
+.p-contactForm-input__comment {
+  font-size: rem(20);
+  color: red;
+}
+
+.p-contactForm-input__block input + input{
+  margin-left: rem(10);
+}
+
+.p-contactForm-input__item {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  @include mq() {
+    display: block;
+  }
+}
+
+.p-contactForm-input__item + .p-contactForm-input__item {
+  margin-top: rem(30);
+  @include mq() {
+    margin-top: rem(15);
+  }
+}
+
+.p-contactForm-input__item--input {
+  align-items: center;
+}
+
+.p-contactForm-input__item label {
+  max-width: rem(200);
+  width: 100%;
+  display: block;
+}
+
+.p-contactForm-input__required {
+  background-color: $contactForm-required-color;
+  color: $text-color;
+  font-size: rem(12);
+  font-weight: $bold;
+  line-height: 1.3333;
+  padding: rem(2) rem(8);
+  margin-left: rem(10);
+  border-radius: 2px;
+}
+
+.p-contactForm-input__item input,
+.p-contactForm-input__item textarea {
+  border: 1px solid $contactForm-border;
+  max-width: rem(400);
+  width: 100%;
+  border-radius: 2px;
+  font-size: rem(16);
+  font-weight: $regular;
+  line-height: 1;
+  padding: rem(12) rem(20);
+  @include mq() {
+    padding: rem(8) rem(10);
+    max-width: none;
+  }
+}
+
+.p-contactForm-input__item input.is-error {
+  border: 2px solid red;
+}
+
+.p-contactForm-input__item input::placeholder,
+.p-contactForm-input__item textarea::placeholder {
+  color: $contactForm-placeholder-color;
+}
+
+.p-contactForm-input__item textarea {
+  height: rem(200);
+  line-height: 1.6;
+  @include mq() {
+    height: rem(150);
+  }
+}
+
+.p-contactForm-input__item textarea.is-error {
+  border: 2px solid red;
+}
+
+
+.p-contactForm-input__item--textarea label {
+  margin-top: rem(10);
+}
+
+.p-contactForm-input__item .p-contactForm-input__error {
+  position: absolute;
+  bottom: rem(-20);
+  right: 0;
+}
+
+.p-contactForm-input__error {
+  font-size: rem(12);
+  color: $contactForm-required-color;
+}
+
+
+
+
+.p-contactForm-input__footer {
+  text-align: center;
+}
+
+.p-contactForm-input__privacy{
+  position: relative;
+  display: inline-block;
+  margin-top: rem(30);
+}
+
+
+.p-contactForm-input__privacy input[type="checkbox"] + label::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: rem(30);
+  height: rem(30);
+  border: 1px solid $contactForm-border;
+}
+
+
+.p-contactForm-input__privacy input[type="checkbox"]:checked + label::after {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  background-image: url(../images/common/check.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: rem(20);
+  height: rem(20);
+  top: rem(5);
+  left: rem(5);
+}
+
+.p-contactForm-input__privacylabel {
+  padding-left: rem(50);
+  @include mq() {
+    padding-left: rem(35);
+  }
+}
+
+.p-contactForm-input__btn {
+  margin-top: rem(30);
+}
+
+.p-contactForm-input__btn input[type="submit"]:disabled {
+  color: $contactForm-border;
+}
+
+.p-contactForm-input__btn input[type="submit"]:disabled:hover {
+  cursor: not-allowed;
+}
+
+

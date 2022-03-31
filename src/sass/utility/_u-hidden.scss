@@ -1,0 +1,20 @@
+@use "global" as *;
+
+////////////////////
+// 非表示設定
+////////////////////
+
+//768px以上（PCサイズ）は非表示
+.u-pc-hidden {
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
+//768px以下（スマホサイズ）では非表示
+.u-sp-hidden {
+  @include mq("md") {
+    display: none;
+  }
+}

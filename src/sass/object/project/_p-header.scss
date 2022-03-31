@@ -5,6 +5,11 @@
   right: 0;
   z-index: $layer-modal;
   background-color: rgba($color: $background-color, $alpha: 1.0);
+  transition: background-color .3s;
+}
+
+.p-header.action {
+  background-color: rgba($color: $background-color, $alpha: 0.8);
 }
 
 .p-header__inner {

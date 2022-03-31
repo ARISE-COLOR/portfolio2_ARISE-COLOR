@@ -1,16 +1,23 @@
 .p-pagetop {
   position: fixed;
   right: rem(40);
-  bottom: rem(25);
+  bottom: rem(-200);
   z-index: $layer-floating;
-  transition: all .3s ease;
+  transition: all 1s ease;
   width: rem(150);
   cursor: pointer;
   animation:floating 5s infinite linear normal;
   @include mq() {
     right: rem(5);
-    bottom: rem(15);
+    bottom: rem(-150);
     width: rem(80);
+  }
+}
+
+.p-pagetop.action {
+  bottom: rem(25);
+  @include mq() {
+    bottom: rem(15);
   }
 }
 

@@ -1,0 +1,20 @@
+.p-contactForm-errorBack {
+  max-width: rem(612);
+  width: 100%;
+  margin: rem(40) auto 0;
+}
+
+.p-contactForm-errorBack__title {
+  font-size: rem(36);
+  text-align: center;
+  margin-top: rem(20);
+  color: red;
+  @include mq() {
+    font-size: rem(24);
+    margin-top: rem(10);
+  }
+}
+
+.p-contactForm-errorBack__comment {
+  font-size: rem(20);
+}

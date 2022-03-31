@@ -1,0 +1,33 @@
+//*****************************************************
+//ボタンホバー効果【キラッと光る】
+//----------------------------------------------------
+//機能：マウスホバー時にキランと光るアニメーション効果
+//----------------------------------------------------
+//設定方法：
+//要素のclassに「u-hover-shine」のみを設定*****************************************************
+
+.u-hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.u-hover-shine::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background-image: linear-gradient(130deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 75%);
+}
+
+.u-hover-shine:hover:before {
+  animation: hover-shine 0.5s;
+}
+
+@keyframes hover-shine {
+  100% {
+    left: 100%;
+  }
+}

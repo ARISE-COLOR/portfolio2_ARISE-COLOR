@@ -29,7 +29,12 @@ dd {
 
 /* Set core root defaults */
 html {
-  scroll-behavior: smooth;
+  // scroll-behavior: smooth;
+}
+
+html.is-fixed,
+html.is-fixed body {
+  overflow: hidden;
 }
 
 /* Set core body defaults */

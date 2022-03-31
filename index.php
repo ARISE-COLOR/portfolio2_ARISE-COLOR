@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!-- <?php
+      //クリックジャッキング対策
+      header('X-FRAME-OPTIONS: SAMEORIGIN');
+      ?> -->
 <html lang="ja" prefix="og: https://ogp.me/ns#">
 
 <head>
@@ -8,11 +12,12 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- meta情報 -->
   <title>ポジティ部 コーダーテストサイト</title>
-  <meta name="description" content="当サイトはWeb制作アライズカラー（ARISE-COLOR)が作成しましたポジティ部内のコーダーテストの課題サイトです。" />
+  <meta name="description" content="当サイトはWeb制作アライズカラー（ARISE-COLOR)が作成しましたLPのサンプルサイトです。" />
   <meta name="keywords" content="キーワード" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#000000">
-  <!-- <meta name=”robots” content=”noindex”>テストサイトのためnoindex設定 -->
+  <!-- テストサイトのためnoindex設定 -->
+  <meta name="robots" content="noindex, nofollow">
   <!-- ogp -->
   <meta property="og:locale" content="ja_JP">
   <meta property="og:title" content="ポジティ部 コーダーテストサイト" />
@@ -20,7 +25,7 @@
   <meta property="og:url" content="https://sample2.arise-color.com" />
   <meta property="og:image" content="https://sample2.arise-color.com/assets/images/screenshot.jpg" />
   <meta property="og:site_name" content="ポジティ部 コーダーテストサイト" />
-  <meta property="og:description" content="当サイトはWeb制作アライズカラー（ARISE-COLOR)が作成しましたポジティ部内のコーダーテストの課題サイトです。" />
+  <meta property="og:description" content="当サイトはWeb制作アライズカラー（ARISE-COLOR)が作成しましたLPのサンプルサイトです。" />
   <!-- ファビコン -->
   <link rel="”icon”" href="" />
   <!-- css -->
@@ -31,41 +36,46 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@700&family=Roboto&display=swap"
     rel="stylesheet">
-  <!-- JavaScript -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <!-- polyfill -->
+  <script defer src="./assets/js/smoothscroll-polyfill.min.js"></script>
+  <!-- JavaScript -->
   <script defer type="text/javascript" src="./assets/js/script.js"></script>
+  <!-- 住所自動入力ライブラリ -->
+  <script src="https://ajaxzip3.github.io/ajaxzip3.js"></script>
 </head>
 
 <body>
-  <header id="header" class="p-header">
+  <header id="header" class="p-header js-about-action">
     <div class="p-header__inner l-inner">
       <!-- ヘッダーロゴ -->
-      <h2 class="p-header__title">
+      <h2 class="p-header__title js-header__title">
         <a href="#main-visual" class="p-header__logo">
           <img src="/assets/images/common/logo.png" alt="ロゴ">
         </a>
       </h2>
 
+      <nav id="g-nav" class="p-g-nav p-header-nav js-drawer-open" aria-labelledby="nav-button">
+        <div class="p-g-nav__container">
+          <ul class="p-g-nav__items p-header-nav__items">
+            <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#about">宇宙のお仕事について</a></li>
+            <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#recuruit">宇宙飛行士募集</a></li>
+            <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#QandA">よくあるご質問</a></li>
+            <li class="p-g-nav__item p-header-nav__contact"><a class="u-hover-shine" href="#contact">応募する</a></li>
+          </ul>
+        </div>
+      </nav>
       <!-- ドロワーメニュー -->
       <div class="p-header__menu u-pc-hidden">
-        <button class="p-drawer-menu js-drawer" aria-label="メニュー" aria-controls="g-nav" aria-expanded="false"
-          tabindex="1" accesskey="m">
+        <button id="nav-button" class="c-drawer js-drawer-button" aria-haspopup="true" aria-controls="header-nav"
+          aria-expanded="false" tabindex="1" accesskey="m">
           <span></span>
           <span></span>
           <span></span>
         </button>
       </div>
-
-      <nav id="g-nav" class="p-g-nav p-header-nav js-drawer-open">
-        <ul class="p-g-nav__items p-header-nav__items">
-          <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#about">宇宙のお仕事について</a></li>
-          <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#recuruit">宇宙飛行士募集</a></li>
-          <li class="p-g-nav__item p-g-nav__item--normal"><a class="u-hover-opacity" href="#QandA">よくあるご質問</a></li>
-          <li class="p-g-nav__item p-header-nav__contact"><a class="u-btn-shine" href="#contact">応募する</a></li>
-        </ul>
-      </nav>
     </div>
-
 
   </header>
 
@@ -74,7 +84,8 @@
     <section id="main-visual" class="p-main-visual">
       <div class="p-main-visual__inner l-inner">
         <div class="p-main-visual__body">
-          <h1 class="p-main-visual__title js-slideInTrigger">宇宙飛行士<span>、</span>募集開始<span>。</span></h1>
+          <h1 class="p-main-visual__title js-scrollInTrigger u-slideIn__FromLeft">宇宙飛行士<span>、</span>募集開始<span>。</span>
+          </h1>
           <p class="p-main-visual__quotations">‘‘宇宙を知った人間は、<span>決して前と同じ人間ではいられない。’’</span></p>
           <p class="p-main-visual__author">By Rota Noz</p>
         </div>
@@ -88,7 +99,7 @@
           <span class="p-section-title__jp p-section-title__jp--center">宇宙のお仕事について</span>
         </h2>
         <ol class="p-about__items l-inner">
-          <li class="p-about__item p-about-block js-fadeInTrigger">
+          <li class="p-about__item p-about-block js-scrollInTrigger u-fadeIn">
             <figure class="p-about-block__img">
               <img src="/assets/images/common/about1.jpg" alt="人類の未知の領域へ挑む">
             </figure>
@@ -102,7 +113,7 @@
             </div>
           </li>
 
-          <li class="p-about__item p-about-block js-fadeInTrigger">
+          <li class="p-about__item p-about-block js-scrollInTrigger u-fadeIn">
             <figure class="p-about-block__img">
               <img src="/assets/images/common/about2.jpg" alt="人々に夢や希望を与えられる">
             </figure>
@@ -116,7 +127,7 @@
             </div>
           </li>
 
-          <li class="p-about__item p-about-block js-fadeInTrigger">
+          <li class="p-about__item p-about-block js-scrollInTrigger u-fadeIn">
             <figure class="p-about-block__img">
               <img src="/assets/images/common/about3.jpg" alt="世界中に仲間が出来る">
             </figure>
@@ -139,10 +150,11 @@
         <h2 class="p-recuruit__title p-section-title">
           <span
             class="p-section-title__en p-section-title__en--lato p-section-title__en--white15 p-section-title__en--right">recuruit</span>
-          <span class="p-section-title__jp p-section-title__jp--center">宇宙飛行士募集</span>
+          <span
+            class="p-section-title__jp p-section-title__jp--center js-slideInTrigger u-slideIn-FromLeft">宇宙飛行士募集</span>
         </h2>
 
-        <div class="p-recuruit__textblock js-fadeInTrigger">
+        <div class="p-recuruit__textblock js-scrollInTrigger u-fadeIn">
           <p class="p-recuruit__text">夢がいっぱいの宇宙飛行士に<span>あなたもなってみませんか？</span></p>
           <p class="p-recuruit__text p-recuruit__text--en">Let’s Join Us!</p>
         </div>
@@ -152,7 +164,7 @@
             <img src="/assets/images/common/recuruit-img.png" alt="宇宙飛行士募集">
           </figure>
           <div class="p-recuruit__form">
-            <dl class="js-fadeInTrigger">
+            <dl class="js-scrollInTrigger u-fadeIn">
               <dt>応募期間</dt>
               <dd>令和3年9月1日～9月30日<br>試験日程等は後日通知いたします。</dd>
               <dt>業種</dt>
@@ -179,24 +191,24 @@
         </h2>
 
         <div class="p-career__body l-inner">
-          <p class="p-career__text js-fadeInTrigger">
+          <p class="p-career__text js-scrollInTrigger u-fadeIn">
             生涯宇宙に携わり続けられる年齢を重ねて、やがて第一線を退く日が訪れても、宇宙飛行士として培った経験を生かして、その後の人生でも、また別のかたちで宇宙に携わることができます。
           </p>
 
           <ul class="p-career__items">
-            <li class="p-career__item js-fadeInTrigger">
+            <li class="p-career__item js-scrollInTrigger u-fadeIn">
               <figure class="p-career__img">
                 <img src="/assets/images/common/career1.png" alt="講演会活動">
                 <figcaption>講演会活動</figcaption>
               </figure>
             </li>
-            <li class="p-career__item js-fadeInTrigger">
+            <li class="p-career__item js-scrollInTrigger u-fadeIn">
               <figure class="p-career__img">
                 <img src="/assets/images/common/career2.png" alt="国際連合宇宙部職員">
                 <figcaption>国際連合宇宙部職員</figcaption>
               </figure>
             </li>
-            <li class="p-career__item js-fadeInTrigger">
+            <li class="p-career__item js-scrollInTrigger u-fadeIn">
               <figure class="p-career__img">
                 <img src="/assets/images/common/career3.png" alt="大学で後進の育成">
                 <figcaption>大学で後進の育成</figcaption>
@@ -223,45 +235,45 @@
           </h2>
         </div>
         <div class="p-checkitout__body">
-          <ul class="p-checkitout__items js-fadeInTrigger">
+          <ul class="p-checkitout__items js-scrollInTrigger u-fadeIn">
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check1.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check1.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check2.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check2.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check3.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check3.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check4.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check4.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check5.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check5.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check6.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check6.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check7.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check7.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
             <li class="p-checkitout__item">
               <figure class="p-checkitout__img">
-                <img src="/assets/images/common/check8.jpg" alt="Noza公式Instagram">
+                <img src="/assets/images/common/check8.jpg" loading="lazy" alt="Noza公式Instagram">
               </figure>
             </li>
           </ul>
@@ -282,7 +294,7 @@
 
         <div class="p-QandA__body">
           <dl class="p-QandA__items js-accordion">
-            <div class="p-QandA__item js-accordion-trigger is-active js-fadeInTrigger">
+            <div class="p-QandA__item js-accordion-trigger is-active js-scrollInTrigger u-fadeIn">
               <dt class="p-QandA__question">
                 宇宙飛行士になるのは難しいと聞いたのですが、実際の所どうでしょうか？
               </dt>
@@ -292,7 +304,7 @@
               </dd>
             </div>
 
-            <div class="p-QandA__item js-accordion-trigger js-fadeInTrigger">
+            <div class="p-QandA__item js-accordion-trigger js-scrollInTrigger u-fadeIn">
               <dt class="p-QandA__question">
                 人間は宇宙のどこまで行けるのでしょうか。
               </dt>
@@ -302,7 +314,7 @@
               </dd>
             </div>
 
-            <div class="p-QandA__item js-accordion-trigger js-fadeInTrigger">
+            <div class="p-QandA__item js-accordion-trigger js-scrollInTrigger u-fadeIn">
               <dt class="p-QandA__question">
                 お給料はいくらですか？
               </dt>
@@ -312,7 +324,7 @@
               </dd>
             </div>
 
-            <div class="p-QandA__item js-accordion-trigger js-fadeInTrigger">
+            <div class="p-QandA__item js-accordion-trigger js-scrollInTrigger u-fadeIn">
               <dt class="p-QandA__question">
                 宇宙飛行士の仕事のやりがいは何ですか？
               </dt>
@@ -331,84 +343,116 @@
     </section>
 
     <!-- 応募フォーム -->
+
     <section id="contact" class="p-contact js-highlight-point">
       <div class="p-contact__inner">
 
         <div class="p-contact__wrapper">
           <div class="p-contact__header">
             <h2 class="p-contact__title">応募フォーム</h2>
-            <p class="p-contact__text js-fadeInTrigger">
-              宇宙飛行士になりたい方はこちらのフォームにご記入のうえ、送信してください。<br>
-              令和3年10月中旬にNOZAより通知をお送りいたします。
+            <p id="contact-text" class="p-contact__text js-scrollInTrigger u-fadeIn">
+              こちらは実際に送信できるようにしております。（自動返信メールが送信されます。お気軽にお試しください。）<br>
+              管理者へのメールは送られないようにコメントアウト設定しており、アドレス収集等は行っておりませんのでご安心ください。<br>
+              ネットに落ちているPHPファイルのコピペではなく、オリジナルのPHPを作成し、ajaxで画面遷移無しで入力画面→確認画面→完了画面が表示されるように作成致しました。<br>
+              郵便番号からの住所自動入力は、「ajaxzip3」を使用しています。
             </p>
           </div>
-          <form id="form" class="p-contact__form js-fadeInTrigger" action="" method="post">
-            <div class="p-contact__item p-contact__item--input">
-              <label for="name">
-                お名前
-                <span class="p-contact__required">必須</span>
-              </label>
-              <input type="text" id="name" name="_name" required="required" placeholder="お名前をご記入ください">
-              <div id="error_name" class="p-contact__error"></div>
-            </div>
 
-            <div class="p-contact__item p-contact__item--input">
-              <label for="ruby">
-                フリガナ
-                <span class="p-contact__required">必須</span>
-              </label>
-              <input type="text" id="ruby" name="_ruby" required="required" placeholder="フリガナをご記入ください">
-              <div id="error_ruby" class="p-contact__error"></div>
-            </div>
+          <div id="contactForm-input">
+            <!-- 入力画面 -->
+            <form id="sendmail" class="p-contact__form p-contactForm-input js-scrollInTrigger u-fadeIn"
+              action="./mail.php" method="post" name="_inputForm">
 
+              <p id="msg" class="p-contactForm-input__comment"></p>
 
-            <div class="p-contact__item p-contact__item--input">
-              <label for="DOB">
-                生年月日
-                <span class="p-contact__required">必須</span>
-              </label>
-              <input type="date" id="DOB" name="_DOB" required="required" placeholder="生年月日をご記入ください">
-              <div id="error_DOB" class="p-contact__error"></div>
-            </div>
-
-            <div class="p-contact__item p-contact__item--input">
-              <label for="email">
-                メールアドレス
-                <span class="p-contact__required">必須</span>
-              </label>
-              <input type="email" id="email" name="_email" required="required" placeholder="メールアドレスをご記入ください">
-              <div id="error_email" class="p-contact__error"></div>
-            </div>
-
-            <div class="p-contact__item p-contact__item--input">
-              <label for="address">
-                ご住所
-                <span class="p-contact__required">必須</span>
-              </label>
-              <input type="text" id="address" name="_address" required="required" placeholder="ご住所をご記入ください">
-              <div id="error_address" class="p-contact__error"></div>
-            </div>
-
-            <div class="p-contact__item p-contact__item--textarea">
-              <label for="content">ご質問など</label>
-              <textarea id="content" name="_content" placeholder="ご質問などがあればご記入ください"></textarea>
-            </div>
-
-            <div class="p-contact__footer">
-              <div class="p-contact__privacy">
-                <input type="checkbox" id="contact-privacy" name="contact-privacy" required
-                  value="プライバシーポリシーに同意する"><label for="contact-privacy"
-                  class="p-contact__privacylabel">プライバシーポリシーに同意する</label>
+              <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="name">
+                  お名前
+                  <span class="p-contactForm-input__required">必須</span>
+                </label>
+                <input type="text" id="name" name="_name" required="required" value="<?php //echo $_SESSION['_name'] 
+                                                                                      ?>" placeholder="お名前をご記入ください。">
+                <div id="error_name" class="p-contactForm-input__error"></div>
               </div>
 
-              <div class="p-contact__btn">
-                <input type="submit" id="contact-submit" name="_contact-submit" class="c-btn-contact" value="送信する"
-                  disabled>
+              <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="ruby">
+                  フリガナ
+                  <span class="p-contactForm-input__required">必須</span>
+                </label>
+                <input type="text" id="ruby" name="_ruby" required="required" value="<?php //echo $_SESSION['_ruby'] 
+                                                                                      ?>" placeholder="フリガナをご記入ください">
+                <div id="error_ruby" class="p-contactForm-input__error"></div>
               </div>
 
-            </div>
+              <!-- <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="DOB">
+                  生年月日
+                </label>
+                <input type="date" id="DOB" name="_DOB" placeholder="生年月日をご記入ください">
+                <div id="error_DOB" class="p-contactForm-input__error"></div>
+              </div> -->
 
-          </form>
+              <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="email">
+                  メールアドレス
+                  <span class="p-contactForm-input__required">必須</span>
+                </label>
+                <input type="email" id="email" name="_email" inputmode="email" required="required" value="<?php //echo $_SESSION['_email'] 
+                                                                                                          ?>"
+                  placeholder="メールアドレスをご記入ください">
+                <div id="error_email" class="p-contactForm-input__error"></div>
+              </div>
+
+              <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="address">
+                  郵便番号
+                </label>
+                <input type="text" id="zipcode" name="_zipcode" maxlength="8" value="<?php //echo $_SESSION['_zipcode'] 
+                                                                                      ?>"
+                  placeholder="例：1234567 or 123-4567" onkeyup="AjaxZip3.zip2addr( this,'','_address','_address' );">
+              </div>
+
+              <div class="p-contactForm-input__item p-contactForm-input__item--input">
+                <label for="address">
+                  ご住所
+                </label>
+                <input type="text" id="address" name="_address" value="<?php //echo $_SESSION['_address'] 
+                                                                        ?>" placeholder="途中まで郵便番号から自動入力されます。">
+              </div>
+
+              <div class="p-contactForm-input__item p-contactForm-input__item--textarea">
+                <label for="content">
+                  お問い合わせ内容
+                  <span class="p-contactForm-input__required">必須</span>
+                </label>
+                <textarea id="content" name="_content" required="required" value="<?php //echo $_SESSION['_content'] 
+                                                                                  ?>"
+                  placeholder="お問い合わせのテスト文章をご自由にご記入ください"><?php //echo nl2br($_SESSION['_content']) 
+                                                                                                                                                                ?></textarea>
+                <div id="error_content" class="p-contactForm-input__error"></div>
+              </div>
+
+              <div class="p-contactForm-input__footer">
+                <div class="p-contactForm-input__privacy">
+                  <input type="checkbox" id="contact-privacy" name="contact-privacy" required
+                    value="プライバシーポリシーに同意する"><label for="contact-privacy"
+                    class="p-contactForm-input__privacylabel">プライバシーポリシーに同意する</label>
+                </div>
+
+                <div class="p-contactForm-input__btn">
+                  <input type="submit" id="contact-submit" class="c-btn-contact" value="送信確認" disabled>
+                </div>
+              </div>
+              <input type="hidden" name="_confirm" value="送信確認">
+
+            </form>
+          </div>
+
+          <!-- 確認画面 -->
+          <div id="contactForm-return">
+            <!-- ajaxで返ってきた確認画面が表示されます -->
+          </div>
         </div>
       </div>
     </section>
@@ -417,19 +461,19 @@
       <div class="p-end-visual__inner">
         <div class="p-end-visual__wrapper">
           <figure class="p-end-visual__img">
-            <img src="/assets/images/common/end-visual-img.jpg" alt="宇宙を知った人間は決して前と同じ人間ではいられない。">
+            <img src="/assets/images/common/end-visual-img.jpg" loading="lazy" alt="宇宙を知った人間は決して前と同じ人間ではいられない。">
           </figure>
           <div class="p-end-visual__text">
-            <h2 class="js-fadeInTrigger">‘‘宇宙を知った人間は<br>
+            <h2 class="js-scrollInTrigger u-fadeIn">‘‘宇宙を知った人間は<br>
               決して前と同じ人間ではいられない。’’</h2>
-            <p class="js-fadeInTrigger">By Rota Noz </p>
+            <p class="js-scrollInTrigger u-fadeIn">By Rota Noz </p>
           </div>
         </div>
       </div>
     </section>
   </main>
   <!-- トップへ戻るボタン -->
-  <div class="p-pagetop">
+  <div id="page-top" class="p-pagetop js-about-action">
     <img src="/assets/images/common/pagetop.png" alt="トップへ戻るボタン">
   </div>
 
@@ -441,15 +485,6 @@
           <img src="/assets/images/common/logo.png" alt="ロゴ">
         </a>
       </h2>
-      <nav class="l-footer-nav p-g-nav">
-        <ul class="p-g-nav__items">
-          <li class="p-g-nav__item"><a class="u-hover-opacity" href="#about">宇宙のお仕事について</a></li>
-          <li class="p-g-nav__item"><a class="u-hover-opacity" href="#recuruit">宇宙飛行士募集</a></li>
-          <li class="p-g-nav__item"><a class="u-hover-opacity" href="#QandA">よくあるご質問</a></li>
-          <li class="p-g-nav__item"><a class="u-hover-opacity" href="#contact">応募フォーム</a></li>
-        </ul>
-      </nav>
-
       <nav class="l-sns p-sns">
         <ul class="p-sns__items">
           <li class="p-sns__item"><a href="https://www.twitter.com/">

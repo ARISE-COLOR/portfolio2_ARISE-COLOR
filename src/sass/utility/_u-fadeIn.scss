@@ -1,18 +1,28 @@
+//*****************************************************
+//フェードインアニメーション【js-scrollInTriggerアイテム】
+//----------------------------------------------------
+//機能：要素を”その場で”透明から表示させるアニメーション
+//----------------------------------------------------
+//設定方法：
+//【js-scrollInTrigger】と一緒に「u-fadeIn」
+// をフェードインさせたい要素のclassに指定
+//*****************************************************
+
 .u-fadeIn{
   opacity:0;
   }
-  
-  @keyframes fadeInAnime{
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 
-.u-fadeIn-active {
-  animation-name: fadeInAnime;
+.u-fadeIn.show {
+  animation-name: fadeIn-Anime;
   animation-duration:2s;/*ゆっくり出現するため数値変更*/
   animation-fill-mode:forwards;
+}
+
+@keyframes fadeIn-Anime{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

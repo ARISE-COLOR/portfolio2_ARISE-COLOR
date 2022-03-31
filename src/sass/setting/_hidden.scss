@@ -1,8 +1,0 @@
-//デスクトップでは非表示
-.u-pc-hidden {
-  display: none;
-  @include mq() {
-    display: block;
-  }
-}
-

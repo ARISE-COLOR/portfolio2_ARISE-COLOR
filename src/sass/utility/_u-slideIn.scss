@@ -1,20 +1,116 @@
-.u-slideIn {
-  margin-left: -100vw;
+//*****************************************************
+//スライドインアニメーション【js-scrollInTriggerアイテム】
+//----------------------------------------------------
+//機能：要素を画面外からスライドインするアニメーション
+//----------------------------------------------------
+//設定方法：
+//【js-scrollInTrigger】と一緒に「u-slideIn__From〇〇」
+//を動かしたい要素のclassに指定
+//*****************************************************
+
+//左から出現するスライドインアニメーション-------------
+.u-slideIn__FromLeft {
+  transform: translateX(-10vw);
+  opacity: 0;
 }
 
-@keyframes slideInAnime{
+.u-slideIn__FromLeft.show {
+  animation-name: slideIn-FormLeft-Anime;
+  animation-duration:.5s;
+  animation-fill-mode:forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes slideIn-FormLeft-Anime{
   from {
-    margin-left: -100vw;
+    transform: translateX(-10vw);
+    opacity: 0;
   }
 
   to {
-    margin-left: initial;
+    transform: initial;
+    opacity: 1;
   }
 }
+//-----------------------------------------------------
 
-.u-slideIn-active {
-  animation-name: slideInAnime;
+
+//右から出現するスライドインアニメーション-------------
+.u-slideIn__FromRight {
+  transform: translateX(10vw);
+  opacity: 0;
+}
+
+.u-slideIn__FromRight.show {
+  animation-name: slideIn-FromRight-Anime;
+  animation-duration:.5s;
+  animation-fill-mode:forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes slideIn-FromRight-Anime{
+  from {
+    transform: translateX(10vw);
+    opacity: 0;
+  }
+
+  to {
+    transform: initial;
+    opacity: 1;
+  }
+}
+//-----------------------------------------------------
+
+
+//上から出現するスライドインアニメーション-------------
+.u-slideIn__FromTop {
+  transform: translateY(-10vh);
+  opacity: 0;
+}
+
+.u-slideIn__FromTop.show {
+  animation-name: slideIn-FromTop-Anime;
+  animation-duration:.5s;
+  animation-fill-mode:forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes slideIn-FromTop-Anime{
+  from {
+    transform: translateY(-10vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: initial;
+    opacity: 1;
+  }
+}
+//-----------------------------------------------------
+
+
+//下から出現するスライドインアニメーション-------------
+.u-slideIn__FromBottom {
+  transform: translateY(10vh);
+  opacity: 0;
+}
+
+.u-slideIn__FromBottom.show {
+  animation-name: slideIn-FromBottom-Anime;
   animation-duration:1s;
   animation-fill-mode:forwards;
   animation-timing-function: ease-out;
 }
+
+@keyframes slideIn-FromBottom-Anime{
+  from {
+    transform: translateY(10vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: initial;
+    opacity: 1;
+  }
+}
+//-----------------------------------------------------

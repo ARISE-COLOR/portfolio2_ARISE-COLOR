@@ -1,51 +1,169 @@
+// .p-g-nav {
+//   height: inherit;
+//   @include mq() {
+//     text-align: center;
+//   }
+// }
+
+// .p-g-nav__items {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: inherit;
+//   @include mq() {
+//     display: inline-block;
+//   }
+// }
+
+// .p-g-nav__items li {
+//   @include mq() {
+//     padding: rem(20) 0;
+//   }
+// }
+
+// .p-g-nav__item + .p-g-nav__item {
+//   margin-left: rem(40);
+//   @include mq() {
+//     margin-left: initial;
+//   }
+// }
+
+// .p-g-nav__item {
+//   height: inherit;
+// }
+
+// .p-g-nav__item a {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: clamp(12px, #{rem(16)}, 16px);
+//   font-weight: $normal;
+//   line-height: 2;
+// }
+
+// .p-g-nav__item--normal a {
+//   height: inherit;
+// }
+
+// .p-g-nav__item--normal a:hover {
+//   opacity: 0.6;
+// }
+
 .p-g-nav {
   height: inherit;
-  @include mq() {
-    text-align: center;
+    @include mq("md") {
+      position: relative;
+      visibility: hidden;
+      opacity: 0;
+    }
   }
-}
-
-.p-g-nav__items {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: inherit;
-  @include mq() {
-    display: inline-block;
+  
+  .p-g-nav.is-open {
+    @include mq("md") {
+      visibility: visible;
+      opacity: 0;
+      animation: navOpen 0.3s forwards;
+    }
   }
-}
-
-.p-g-nav__items li {
-  @include mq() {
-    padding: rem(20) 0;
+  @keyframes navOpen {
+    100% {
+      opacity: 1;
+    }
   }
-}
-
-.p-g-nav__item + .p-g-nav__item {
-  margin-left: rem(40);
-  @include mq() {
-    margin-left: initial;
+  
+  .p-g-nav::after {
+    @include mq("md") {
+      visibility: hidden;
+      opacity: 0;
+      background-color: rgba($color: $background-color, $alpha: 0.8);
+      position: fixed;
+      content: "";
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 120%;
+      z-index: $layer-floating;
+    }
   }
-}
-
-.p-g-nav__item {
-  height: inherit;
-}
-
-.p-g-nav__item a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  // padding: rem(5) 0;
-  font-size: rem(16);
-  font-weight: $normal;
-  line-height: 2;
-}
-
-.p-g-nav__item--normal a {
-  height: inherit;
-}
-
-.p-g-nav__item--normal a:hover {
-  opacity: 0.6;
-}
+  
+  .p-g-nav.is-open::after {
+    visibility: visible;
+    opacity: 0;
+    animation: navOpen 0.3s forwards;
+  }
+  
+  .p-g-nav.is-close::after {
+    visibility: visible;
+    opacity: 1;
+    animation: navClose 0.3s forwards;
+  }
+  
+  .p-g-nav.is-close {
+    @include mq("md") {
+      visibility: visible;
+      opacity: 1;
+      animation: navClose 0.3s forwards;
+    }
+  }
+  @keyframes navClose {
+    100% {
+      visibility: hidden;
+      opacity: 0;
+    }
+  }
+  
+  .p-g-nav__container {
+    height: inherit;
+    @include mq() {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: calc(calc(var(--vh, 1vh) * 100));
+      margin: 0 calc(50% - 50vw);
+      width: 100vw;
+      background-color: rgba($color: $background-color, $alpha: 0.8);
+      z-index: $layer-drawer;
+      overflow: scroll;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+  
+  .p-g-nav__items {
+    height: inherit;
+    margin-top: unset;
+    display: flex;
+    align-items: center;
+    @include mq() {
+      flex-direction: column;
+      height: 100%;
+      padding-top: rem(150);
+      text-align: center;
+    }
+  }
+  
+  .p-g-nav__item {
+    height: inherit;
+    text-transform: uppercase;
+    @include mq() {
+      margin-top: rem(3);
+      display: block;
+      width: 100%;
+      height: unset;
+    }
+  }
+  
+  .p-g-nav__item--normal a {
+    padding: rem(20) rem(20);
+    display: flex;
+    align-items: center;
+    height: inherit;
+    font-size: clamp(14px, #{rem(16)}, 16px);
+    font-weight: $normal;
+    line-height: 2;
+    @include mq("md") {
+      display: inline-block;
+      width: 100%;
+      font-size: clamp(14px, #{rem(24)}, 24px);
+    }
+  }

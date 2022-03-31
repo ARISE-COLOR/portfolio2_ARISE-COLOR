@@ -1,221 +1,429 @@
 jQuery(function ($) { // この中であればWordpressでも「$」が使用可能になる
 
-
 /*********************************************************
- * ドロワーメニュー
+ * メール送信（確認画面表示）
 *********************************************************/
-  $(".js-drawer").click(function () {
-    $(this).toggleClass('active');//
-    $(".js-drawer-open").toggleClass('is-open');
+$(function(){
+    // $('#sendmail').submit(function(event) {
+    $(document).on("submit", '#sendMail-check',function(event) {
+
+      var form = $(this);
+      var url = form.attr('action');
+      var method = form.attr('method');
+      var serialize = form.serialize();
+      var sendmode = document._confirmForm.onbtn.value;
+
+      $.ajax({
+        type: method,
+        url: url,
+        data: serialize,
+        dataType: false, //通信結果を受け取らない場合はfalse
+        beforeSend: function(xhr, settings) {
+          // ajax送信前の処理
+          $(window).scrollTop($('#contact').position().top);
+        },
+        complete: function(xhr, status) {
+          // ajax応答後の処理
+        },
+        success: function(data) {
+          // ajax通信成功時の処理
+          // 戻るボタン
+          if (sendmode == '_back') {
+            $('#msg').html('恐れ入りますが、再度ご入力ください。');
+            $('#contactForm-return').html(data);
+            $('#contactForm-input').show('fast');
+            $('#contact-text').show('fast');
+            // 送信ボタン
+          } else if(sendmode == '_send') {
+            $('#contactForm-return').html(data);
+          }
+        },
+        error: function(xhr, status, error) {
+          // ajax通信成失敗の処理
+          $('#msg').html("通信エラーが発生しました。");
+        }
+      });
+      return false;
+    });
+
+    $(document).on("submit", '#sendmail',function(event) {
+      var form = $(this);
+      var url = form.attr('action');
+      var method = form.attr('method');
+      var serialize = form.serialize();
+
+        $.ajax({
+          type: method,
+          url: url,
+          data: serialize,
+          dataType: false, //通信結果を受け取らない場合はfalse
+          beforeSend: function(xhr, settings) {
+            // ajax送信前の処理
+            $(window).scrollTop($('#contact').position().top);
+          },
+          complete: function(xhr, status) {
+            // ajax応答後の処理
+          },
+          success: function(data) {
+            // ajax通信成功時の処理
+
+            //確認画面表示
+            $('#contactForm-return').html(data);
+            //入力画面非表示
+            $('#contactForm-input').hide();
+            //入力画面標準テキストの非表示
+            $('#contact-text').hide();
+          },
+          error: function(xhr, status, error) {
+            // ajax通信成失敗の処理
+            $('#msg').html("通信エラーが発生しました。");
+          }
+        });
+      return false;
+    });
   });
 
-  $(".js-drawer-open a").click(function () {
-    $(".js-drawer").removeClass('active');
-    $(".js-drawer-open").removeClass('is-open');
-  });
+});
 
-  $(".p-header__title a").click(function() {
-    $(".js-drawer").removeClass('active');
-    $(".js-drawer-open").removeClass('is-open');
-  });
+
+// 以下、Vanilla JSで記載
+/**********************************************
+* iOS版Safariの100vh対応
+**********************************************/
+const setFillHeight = () => {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+let vw = window.innerWidth;
+// ガタつき防止に横幅変動時のみリサイズ
+window.addEventListener('resize', () => {
+  if (vw === window.innerWidth) {
+      //画面幅に変動がなければ処理終了
+      return;
+  }
+  vw = window.innerWidth;
+  setFillHeight();
+});
+
+window.addEventListener('load', setFillHeight);
 
 /*********************************************************
- * 画面がリサイズされたらドロワーメニューを閉じる
- *********************************************************/
-  $(window).on('resize', function () {
-    $(".js-drawer").removeClass('active');
-    $(".js-drawer-open").removeClass('is-open');
-  });
-
-
-/*********************************************************
- * ボタンの表示設定＆ヘッダーの背景色変更
+* ドロワーメニュー
 *********************************************************/
-  var topBtn = $('.p-pagetop');
-  topBtn.hide();
+const htmlBody = document.documentElement;
+const drawer_button = document.querySelector('.js-drawer-button');
+const g_nav = document.querySelector('.js-drawer-open');
 
-  $(window).scroll(function () {
+// メニューボタンクリック時
+drawer_button.addEventListener('click', () => {
+  if (drawer_button.getAttribute('aria-expanded') == 'false') {
+    // メニュー画面のサイズ最適化（iOS版Safariの100vh対応）
+    setFillHeight();
+    // メニューボタンの属性変更（オープン）
+    drawer_button.setAttribute('aria-expanded', 'true');
+    //メニューにis-openクラスを付与、is-closeクラス削除
+    g_nav.classList.add('is-open');
+    g_nav.classList.remove('is-close');
+    //スクロール禁止
+    htmlBody.classList.add('is-fixed');
+    document.addEventListener('touchmove', scroll_control, { passive: false });
 
-    let header = $('#header').innerHeight();
-    let targetY = $('#about').offset().top - header;
+  } else {
+    // メニューボタンの属性変更（クローズ）
+    drawer_button.setAttribute('aria-expanded', 'false');
+    //メニューのis-openクラスを削除、is-closeクラス付与
+    g_nav.classList.add('is-close');
+    g_nav.classList.remove('is-open');
+    // スクロール禁止を解除
+    htmlBody.classList.remove('is-fixed');
+    document.removeEventListener('touchmove', scroll_control, { passive: false });
+  }
+});
 
-    if ($(this).scrollTop() >  targetY) {
-      // 指定px以上のスクロールでボタンを表示
-      topBtn.fadeIn();
-      // ヘッダーの背景
-      $(".p-header").css("background-color", "rgba(0 ,0 ,0 ,0.8)");
-      $(".p-header").css("transition", "all 0.3s");
-
-    } else {
-      // 画面が指定pxより上ならボタンを非表示
-      topBtn.fadeOut();
-      // ヘッダーの背景色
-      $(".p-header").css("background-color", "rgba(0 ,0 ,0 ,1)");
-      $(".p-header").css("transition", "all 0.3s");
-    }
+// メニュー項目選択時にメニューを閉じる処理
+const header_nav = document.getElementById('header')
+const g_nav_a = header_nav.querySelectorAll('a');
+const g_nav_a_Arr = Array.prototype.slice.call(g_nav_a);
+g_nav_a_Arr.forEach(navlink => {
+  navlink.addEventListener('click', (e) => {
+      if (drawer_button.getAttribute('aria-expanded') == 'false') {
+        // メニューを開いていない場合は何もしない（PCモードを想定）
+    
+      } else { // メニューを閉じる処理
+        // メニューボタンの属性変更（クローズ）
+        drawer_button.setAttribute('aria-expanded', 'false');
+        //メニューのis-openクラスを削除、is-closeクラス付与
+        g_nav.classList.add('is-close');
+        g_nav.classList.remove('is-open');
+        // スクロール禁止を解除
+        htmlBody.classList.remove('is-fixed');
+        document.removeEventListener('touchmove', scroll_control, { passive: false });
+      }
   });
+});
+
+
+/*--------------------------------------------------------
+* スクロール禁止関連メソッド
+--------------------------------------------------------*/
+// js-drawer-openが親要素に入っているときのみスクロール禁止を解除
+var scroll_control = function(event) {
+  if ($(event.target).closest('.js-drawer-open').length > 0) {
+      event.stopPropagation();
+  } else {
+      event.preventDefault();
+  }
+};
+
+/*--------------------------------------------------------
+* リサイズにより、スマホ→PC時にメニュー関係閉じる
+--------------------------------------------------------*/
+const mediaQuery = window.matchMedia('(min-width: 768px)');
+
+function handleTabletChange(e) {
+  // メディアクエリがtrueかどうかを確認
+  if (e.matches) {
+    // メニューボタンの属性変更（クローズ）
+    drawer_button.setAttribute('aria-expanded', 'false');
+    //メニューのis-open、is-closeクラスを削除
+    g_nav.classList.remove('is-open');
+    g_nav.classList.remove('is-close');
+    // スクロール禁止を解除
+    htmlBody.classList.remove('is-fixed');
+    document.removeEventListener('touchmove', scroll_control, { passive: false });
+  }
+}
+// イベントリスナーを登録
+mediaQuery.addEventListener('change', handleTabletChange);
+// 初期チェック
+handleTabletChange(mediaQuery);
+
 
 /*********************************************************
  * ボタンをクリックしたらスクロールして上に戻る
 *********************************************************/
-  topBtn.click(function () {
-    $('body,html').animate({
-      scrollTop: 0
-    }, 400, 'swing');
-    return false;
+const pageTopBtn = document.querySelector('#page-top');
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
   });
-
+});
 
 /*********************************************************
  * スムーススクロール
 *********************************************************/
-  // $(document).on('click', 'a[href*="#"]', function () {
-  //   let time = 900;
-  //   let header = $('header').innerHeight();
-  //   let target = $(this.hash);
-  //   if (!target.length) return;
-  //   let targetY = target.offset().top - header;
-  //   $('html,body').animate({ scrollTop: targetY }, time, 'swing');
-  //   return false;
-  // });
-
-
-/*********************************************************
- * メインビジュアルの看板スライドイン
-*********************************************************/
-function slideIn() {
-  $('.js-slideInTrigger').each(function () { 
-    var elemPos = $(this).offset().top - 50;//要素より、50px上
-    var scroll = $(window).scrollTop();
-    var windowHeight = $(window).height();
-    if (scroll >= elemPos - windowHeight) {
-      $(this).addClass('u-slideIn-active');// 画面内に入ったらu-slideInというクラス名を追記
-    } else {
-      // $(this).removeClass('u-slideIn-active');// 画面外に出たらu-slideInというクラス名を外す（一度しかアニメーションさせない場合は不要）
+const interval_ms = 10;//動作の時間間隔（ミリ秒）
+const move_division = 10.0;//動作の移動割合
+let headerH = document.getElementById('header');
+const gap = headerH.offsetHeight; //ヘッダーの高さを取得
+const y_shift = gap;//ヘッダー分高さをずらす
+const y_threhold = 1;
+var y_diff;
+var y;
+var y_target;
+var count;
+var selectedTarget;
+var previousTarget;
+var isMoving = false;
+const aTags = document.querySelectorAll("a");
+aTags.forEach(aTag => {
+  aTag.onclick = function() {
+    document.querySelector("html").style.scrollBehavior = "auto";
+    var hrefTarget = aTag.getAttribute("href");
+    if (hrefTarget != null) {
+      var firstCharactor = hrefTarget.substr(0,1);
+      if(firstCharactor == "#"){
+        var targetName = hrefTarget.substr(1);
+        if ((previousTarget == targetName && isMoving == false) || (previousTarget != targetName)){
+          isMoving = true;
+          selectedTarget = targetName;
+          aTag.removeAttribute("href");
+          count = 0;
+          console.log(" click:", targetName);
+          scroll_start(targetName, aTag);
+          previousTarget = targetName;
+        }
+        else {
+          console.log("moving:", targetName);
+          aTag.removeAttribute("href");
+        }
+      }
     }
-  });
-}
-
-
-function slideInReady() {
-  $('.js-slideInTrigger').each(function () { 
-    $(this).addClass('u-slideIn'); //準備として一旦表示を消す
-  });
-}
-
-$(document).ready(function() {
-  slideInReady();//準備として一旦表示を消す
+  }
 });
 
-/*********************************************************
- * その場でフェードイン
- *********************************************************/
-function fadeAnime() {
-  $('.js-fadeInTrigger').each(function () { 
-    var elemPos = $(this).offset().top - 50;//要素より、50px上
-    var scroll = $(window).scrollTop();
-    var windowHeight = $(window).height();
-    $(this).addClass('u-fadeIn'); //準備として一旦表示を消す
-    if (scroll >= elemPos - windowHeight) {
-      $(this).addClass('u-fadeIn-active');// 画面内に入ったらu-fadeInというクラス名を追記
+function scroll(p_target, aTag) {
+  if (p_target == selectedTarget){
+    count += 1;
+    var y_move = y_diff / move_division;
+    y += y_move;
+    scrollTo(0, y);
+    y_diff = y_target - y;
+   
+    if ((y_diff < 0 && y_target < y) || (0 < y_diff && y < y_target)) {
+      if (Math.abs(y_diff) >= y_threhold) {
+        setTimeout(function(){scroll(p_target, aTag);}, interval_ms);
+      }
+      else {
+        scrollTo(0, y_target);
+        document.querySelector("html").style.scrollBehavior = "smooth";
+        isMoving = false;
+        console.log("   end:", p_target);
+      }
+   
+      if (count >= 2) {
+        aTag.setAttribute("href", "#"+p_target);
+      }
     } else {
-      // $(this).removeClass('u-fadeIn-active');// 画面外に出たらfadeInというクラス名を外す（一度しかアニメーションさせない場合は不要）
+      if (count == 1) {
+        setTimeout(function(){scroll(p_target, aTag);}, interval_ms);
+      }
+      else {
+        aTag.setAttribute("href", "#"+p_target);
+        document.querySelector("html").style.scrollBehavior = "smooth";
+        isMoving = false;
+        console.log("   end:", p_target);
+      }
     }
+  }
+  else {
+    aTag.setAttribute("href", "#"+p_target);
+    console.log("cancel:", p_target);
+  }
+}
+function scroll_start(p_target, aTag) {
+  y = window.pageYOffset;
+  y_diff = parseInt(document.getElementById(p_target).getBoundingClientRect().top);
+  y_target = y_diff + y - y_shift;
+  scroll(p_target, aTag);
+}
+
+/********************************************************
+ * フェードイン／フェードアウト
+ * ------------------------------------------------------
+ * 機能：特定のクラスに対して、フェードイン／アウト効果を付与
+ * ----------------------------------------------------
+ * 処理：対象のCSSにアニメーション設定を付与
+ * ------------------------------------------------------
+ * 注意事項：utilityフォルダの【_u-js-fadeIn_fadeOut】とセット
+ * ------------------------------------------------------
+ * 使い方：
+ * fadeIn(【ターゲット】, 【デュレーション】, 【イージング】);
+ * fadeIn(【ターゲット】, 【デュレーション】, 【イージング】);
+ * 
+ * フェードイン例
+ * fadeIn(document.querySelector('.js-fadeIn'));
+ * fadeIn(document.querySelector('.js-fadeIn'), 1000, 'ease-in');
+ * フェードアウト例
+ * fadeOut(document.querySelector('.js-fadeOut'));
+ * fadeOut(document.querySelector('.js-fadeOut'), 2000, 'linear');
+*********************************************************/
+function fadeIn(target, duration, ease) {
+  var motion = "fade-in";
+  target.style.display = 'block';
+  animation(target, duration, ease, motion);
+}
+
+function fadeOut(target, duration, ease) {
+  var motion = 'fade-out';
+  animation(target, duration, ease, motion);
+  target.addEventListener('animationend', function () {
+      target.style.display = 'none';
   });
 }
 
-  $(window).on('load', function () {
-    slideIn();// 左からスライドイン
-    fadeAnime(); //その場でフェードイン
-    PositionCheck();/* 現在地を取得する関数を呼ぶ*/
-    ScrollAnime();/* ナビゲーションに現在地のクラスをつけるための関数を呼ぶ*/
-  });
-
-  $(window).scroll(function () {
-    fadeAnime(); //その場でフェードイン
-    PositionCheck();/* 現在地を取得する関数を呼ぶ*/
-    ScrollAnime();/* ナビゲーションに現在地のクラスをつけるための関数を呼ぶ*/
-  });
-
-  $(window).resize(function() {
-    //リサイズされたときの処理
-    PositionCheck()
-  });
-
-/*********************************************************
- * ヘッダーメニューの現在地ハイライト(まだ未実装)
- *********************************************************/
-
-//基準点の準備
-var elemTop = [];
-
-//現在地を取得するための設定を関数でまとめる
-function PositionCheck(){
-    //headerの高さを取得
-  var headerH = $("#header").outerHeight(true);
-    //.scroll-pointというクラス名がついたエリアの位置を取得する設定
-  $(".js-highlight-point").each(function(i) {//.scroll-pointクラスがついたエリアからトップまでの距離を計算して設定
-    elemTop[i] =Math.round(parseInt($(this).offset().top-headerH));//追従するheader分の高さ（70px）を引き小数点を四捨五入
-  });
+function animation(target, duration, ease, motion) {
+  if (/^-?[0-9]+$/.test(duration)) {
+      duration = duration + 'ms';
+  } else {
+      duration = '400ms';
+  }
+  target.style.animation = [motion, "forwards", duration, ease].join(" ");
 }
 
-//ナビゲーションに現在地のクラスをつけるための設定
-function ScrollAnime() {//スクロールした際のナビゲーションの関数にまとめる
-  var scroll = Math.round($(window).scrollTop());
-  var NavElem = $("#g-nav li");//ナビゲーションのliの何番目かを定義するための準備
-  $("#g-nav li").removeClass('current');//全てのナビゲーションの現在地クラスを除去
-  if(scroll >= 0 && scroll < elemTop[1]) {//スクロール値が0以上 .scroll-point 1つめ（area-1）の高さ未満
-      $(NavElem[0]).addClass('current');//1つめのliに現在地クラスを付与
+/********************************************************
+ * 『#about』セクションでヘッダー透過度変更＆トップへ戻るボタン表示
+ * ------------------------------------------------------
+ * 機能：【js-about-action】に対して、
+ *        『#about』セクションが画面上部（ヘッダー分引く）
+ *         に要素が入ったら『action』クラス付与
+ * ------------------------------------------------------
+ * 本サイトでの設定箇所：
+ * p-haader(ヘッダー)の背景色透過度変更
+ * p-pagetop(topへ戻るボタン)の表示、非表示切り替え
+*********************************************************/
+const aboutTrigger = document.querySelectorAll('.js-about-action'); // スライドで表示させる要素の取得
+const pageTop = document.getElementById('page-top');
+
+const headerHight = document.getElementById('header').offsetHeight;
+let aboutSection = document.getElementById('about').getBoundingClientRect();
+let aboutWindowY = window.pageYOffset; // ウィンドウのスクロール位置を取得
+let aboutSectionTop = aboutSection.top + aboutWindowY;
+
+function aboutSectionScroll() {
+  aboutWindowY = window.pageYOffset; // ウィンドウのスクロール位置を取得
+  for (var i = 0; i < aboutTrigger.length; i++) {
+    if(aboutWindowY > aboutSectionTop - headerHight) {
+      aboutTrigger[i].classList.add('action');
+    } else {
+      aboutTrigger[i].classList.remove('action');
     }
-  else if(scroll >= elemTop[1] && scroll < elemTop[2]) {//.scroll-point 1つめ（area-1）以上.scroll-point 2つめ（area-2）未満
-     $(NavElem[1]).addClass('current');//2つめのliに現在地クラスを付与
-    } 
-    else if(scroll >= elemTop[2] && scroll < elemTop[3]) {//.scroll-point 2つめ（area-2）以上.scroll-point 3つめ（area-3）未満
-     $(NavElem[2]).addClass('current');//3つめのliに現在地クラスを付与
-    } 
-    else if(scroll >= elemTop[3]) {// .scroll-point 3つめ（area-3）以上
-      $(NavElem[3]).addClass('current');//4つめのliに現在地クラスを付与
-    } 
+  }
 }
 
+window.addEventListener('scroll', aboutSectionScroll);
+window.addEventListener('load', aboutSectionScroll);
 
+/********************************************************
+ * スクロールインアニメーション【js-scrollInTrigger】
+ * ------------------------------------------------------
+ * 機能：『js-scrollInTrigger』に対して、
+ *        画面内に要素が入ったら『show』クラス付与
+*********************************************************/
+const scrollInAnime = document.querySelectorAll('.js-scrollInTrigger'); // スライドで表示させる要素の取得
+let scrollInAnimeRect = []; // 要素の位置を入れるための配列
+let scrollInAnimeTop = []; // 要素の位置を入れるための配列
+let windowY = window.pageYOffset; // ウィンドウのスクロール位置を取得
+let windowH = window.innerHeight; // ウィンドウの高さを取得
+let scrollInAnime_remainder = 100; // 少し表示してからアニメーションスタートする縦幅
+// 要素の位置を取得
+for (var i = 0; i < scrollInAnime.length; i++) {
+  scrollInAnimeRect.push(scrollInAnime[i].getBoundingClientRect());
+}
+for (var i = 0; i < scrollInAnimeRect.length; i++) {
+  scrollInAnimeTop.push(scrollInAnimeRect[i].top + windowY);
+}
+// ウィンドウがリサイズされたら、ウィンドウの高さを再取得
+window.addEventListener('resize', function () {
+  windowH = window.innerHeight;
 });
 
+// スクロールアニメーション処理
+function scrollInProcessing() {
+  // スクロール位置を取得
+  windowY = window.pageYOffset;
 
-
-
-/*********************************************************
- * スムーススクロール
-*********************************************************/
-// すべての（href="#~"）のaタグを取得
-const smoothScrollTrigger = document.querySelectorAll('a[href^="#"]');
-
-//取得したaタグそれぞれにクリックイベントを付与
-for (let i = 0; i < smoothScrollTrigger.length; i++) {
-  smoothScrollTrigger[i].addEventListener('click', (e) => {
-    e.preventDefault();
-    let href = smoothScrollTrigger[i].getAttribute('href');
-    let targetElement = document.getElementById(href.replace('#', ''));
-
-    const rect = targetElement.getBoundingClientRect().top; //ブラウザからの高さを取得
-    const offset = window.pageYOffset;
-    var headerH = document.getElementById('header'); //ヘッダーの高さを取得
-    const gap = headerH.offsetHeight;
-    const target = rect + offset - gap;
-
-    //スムーススクロール
-    window.scrollTo ({
-      top: target,
-      behavior: 'smooth',
-    });
-
-  });
-
-
-
+  for (var i = 0; i < scrollInAnime.length; i++) {
+    // 要素が画面の下端にかかったら
+    if(windowY > scrollInAnimeTop[i] - windowH + scrollInAnime_remainder) {
+      // .showを付与
+      scrollInAnime[i].classList.add('show');
+    } else {
+      // 逆に.showを削除（一度きりの場合は削除しない）
+      // scrollInAnime[i].classList.remove('show');
+    }
+  }
 }
 
-
+// スクロールされたら
+window.addEventListener('scroll', scrollInProcessing);
+//画面読み込みされたら
+window.addEventListener('load', scrollInProcessing);
+//HTMLの読み込み直後なら下記
+//しかし、これだとcssの読み込み前に実行されてしまうため、要素の高さ等が関係しているjavascriptだと、このイベントは不適切になる
+// window.addEventListener('DOMContentLoaded', scrollInProcessing);
 
 /*********************************************************
  * Q＆A アコーディオン
@@ -329,26 +537,32 @@ accordionsArr.forEach((accordion) => {
 /****************************************************************
  * 応募フォームのバリデーションチェック＆送信ボタンの非活性制御
 *****************************************************************/
-const $form = document.getElementById('form');
-const $submit = document.getElementById('contact-submit');
+// function setformvalidation() {
+  const $form = document.getElementById('sendmail');
+  const $submit = document.getElementById('contact-submit');
+  
+  /* form element */
+  const $form_name = $form.elements['_name'];
+  const $form_ruby = $form.elements['_ruby'];
+  // const $form_DOB = $form.elements['_DOB'];
+  const $form_email = $form.elements['_email'];
+  const $form_address = $form.elements['_address'];
+  const $form_content = $form.elements['_content']
+  
+  /* error element */
+  const $error_name = document.getElementById("error_name")
+  const $error_ruby = document.getElementById("error_ruby")
+  // const $error_DOB = document.getElementById("error_DOB")
+  const $error_email = document.getElementById("error_email")
+  const $error_address = document.getElementById("error_address")
+  const $error_content = document.getElementById("error_content")
+  
+  /* バリデーションパターン */
+  const rubyValid = /^[ァ-ヶー　]+$/; //フリガナ
+  const emailValid= /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/; //メールアドレス
+// }
 
-/* form element */
-const $form_name = $form.elements['_name'];
-const $form_ruby = $form.elements['_ruby'];
-const $form_DOB = $form.elements['_DOB'];
-const $form_email = $form.elements['_email'];
-const $form_address = $form.elements['_address'];
 
-/* error element */
-const $error_name = document.getElementById("error_name")
-const $error_ruby = document.getElementById("error_ruby")
-const $error_DOB = document.getElementById("error_DOB")
-const $error_email = document.getElementById("error_email")
-const $error_address = document.getElementById("error_address")
-
-/* バリデーションパターン */
-const rubyValid = /^[ァ-ヶー　]+$/; //フリガナ
-const emailValid= /^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}$/; //メールアドレス
 
 /*--------------------------------
  * お名前バリデーションチェック
@@ -437,27 +651,27 @@ $form_email.addEventListener('input', (e) => {
 })
 
 /*--------------------------------
- * ご住所バリデーションチェック
+ * お問い合わせ内容バリデーションチェック
 --------------------------------*/
-$form_address.addEventListener('change', (e) => {
-  $form_address.setCustomValidity('');
-  $form_address.classList.remove("is-error");
-  if($form_address.value==""){
-    $form_address.setCustomValidity('ご住所が入力されていません。');
-    $form_address.classList.add("is-error");
+$form_content.addEventListener('change', (e) => {
+  $form_content.setCustomValidity('');
+  $form_content.classList.remove("is-error");
+  if($form_content.value==""){
+    $form_content.setCustomValidity('お問い合わせ内容が入力されていません。');
+    $form_content.classList.add("is-error");
   }
-  $error_address.innerHTML = $form_address.validationMessage;
+  $form_content.innerHTML = $form_address.validationMessage;
 })
 /* リアルタイムチェック(入力中はエラーを消す) */
-$form_address.addEventListener('input', (e) => {
-  $form_address.setCustomValidity('');
-  if($form_address.value==""){
-    $form_address.setCustomValidity(' ');
-    $form_address.classList.add("is-error");
+$form_content.addEventListener('input', (e) => {
+  $form_content.setCustomValidity('');
+  if($form_content.value==""){
+    $form_content.setCustomValidity(' ');
+    $form_content.classList.add("is-error");
   } else {
-    $form_address.classList.remove("is-error");
+    $form_content.classList.remove("is-error");
   }
-  $error_address.innerHTML = $form_address.validationMessage;
+  $form_content.innerHTML = $form_content.validationMessage;
 })
 
 /*--------------------------------
@@ -467,9 +681,11 @@ $form.addEventListener('change', update);
 $form.addEventListener('input', update);
 
 // submitイベントで送信制御
-$form.addEventListener('submit', (e) => {
-  e.preventDefault();
-});
+// $form.addEventListener('submit', (e) => {
+//   e.preventDefault(); //デフォルトのイベントをキャンセル
+//   //送信前に処理したい内容をここに記述
+//   document._inputForm.submit();//submit実行
+// });
 
 function update(e) {
   // バリデーションが総合的に通っているかどうかのフラグ

@@ -1,0 +1,101 @@
+// 確認フォーム
+.p-contactForm-confirm {
+  max-width: rem(612);
+  width: 100%;
+  margin: rem(40) auto 0;
+}
+
+.p-contactForm-confirm__title {
+  font-size: rem(36);
+  text-align: center;
+}
+
+.p-contactForm-confirm__text {
+  font-size: rem(20);
+  text-align: start;
+}
+
+.p-contactForm-confirm__item {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: rem(5);
+  @include mq() {
+    display: block;
+  }
+}
+
+.p-contactForm-confirm__item + .p-contactForm-confirm__item {
+  margin-top: rem(10);
+  @include mq() {
+    margin-top: rem(5);
+  }
+}
+
+.p-contactForm-confirm__item--input {
+  align-items: center;
+}
+
+.p-contactForm-confirm__item label {
+  max-width: rem(200);
+  width: 100%;
+  display: block;
+}
+
+.p-contactForm-confirm__required {
+  background-color: $contactForm-required-color;
+  color: $text-color;
+  font-size: rem(12);
+  font-weight: $bold;
+  line-height: 1.3333;
+  padding: rem(2) rem(8);
+  margin-left: rem(10);
+  border-radius: 2px;
+}
+
+.p-contactForm-confirm__item input,
+.p-contactForm-confirm__item textarea {
+  border: 2px solid $contactForm-confirmborder;
+  background-color: $contactForm-confirmbackground;
+  color: $contactForm-text-color;
+  max-width: rem(400);
+  width: 100%;
+  border-radius: 2px;
+  font-size: rem(16);
+  font-weight: $regular;
+  line-height: 1;
+  padding: rem(12) rem(20);
+  @include mq() {
+    padding: rem(8) rem(10);
+    max-width: none;
+  }
+}
+
+
+.p-contactForm-confirm__item textarea {
+  height: rem(200);
+  line-height: 1.6;
+  @include mq() {
+    height: rem(150);
+  }
+}
+
+.p-contactForm-confirm__item--textarea label {
+  margin-top: rem(10);
+}
+
+.p-contactForm-confirm__footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: rem(30);
+  @include mq() {
+    margin-top: rem(15);
+  }
+}
+
+.p-contactForm-confirm__footer input + input{
+  margin-left: rem(20);
+}
+
+

@@ -10,7 +10,8 @@
 
 .p-main-visual__inner {
   position: relative;
-  height: (900 / 1440) * 100vw;
+  // height: (900 / 1440) * 100vw;
+  height: 100vh;
   @include mq() {
     height: 100vh;
   }
