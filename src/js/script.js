@@ -1,4 +1,4 @@
-jQuery(function ($) { // この中であればWordpressでも「$」が使用可能になる
+jQuery(function ($) { 
 
 /*********************************************************
  * メール送信（確認画面表示）
@@ -27,7 +27,6 @@ $(function(){
         },
         success: function(data) {
           // ajax通信成功時の処理
-          // 戻るボタン
           if (sendmode == '_back') {
             $('#msg').html('恐れ入りますが、再度ご入力ください。');
             $('#contactForm-return').html(data);
