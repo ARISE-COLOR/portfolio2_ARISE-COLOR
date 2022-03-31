@@ -370,8 +370,7 @@
                   お名前
                   <span class="p-contactForm-input__required">必須</span>
                 </label>
-                <input type="text" id="name" name="_name" required="required" value="<?php //echo $_SESSION['_name'] 
-                                                                                      ?>" placeholder="お名前をご記入ください。">
+                <input type="text" id="name" name="_name" required="required" value="<?php echo $_SESSION['_name']?>" placeholder="お名前をご記入ください。">
                 <div id="error_name" class="p-contactForm-input__error"></div>
               </div>
 
@@ -380,26 +379,16 @@
                   フリガナ
                   <span class="p-contactForm-input__required">必須</span>
                 </label>
-                <input type="text" id="ruby" name="_ruby" required="required" value="<?php //echo $_SESSION['_ruby'] 
-                                                                                      ?>" placeholder="フリガナをご記入ください">
+                <input type="text" id="ruby" name="_ruby" required="required" value="<?php echo $_SESSION['_ruby']?>" placeholder="フリガナをご記入ください">
                 <div id="error_ruby" class="p-contactForm-input__error"></div>
               </div>
-
-              <!-- <div class="p-contactForm-input__item p-contactForm-input__item--input">
-                <label for="DOB">
-                  生年月日
-                </label>
-                <input type="date" id="DOB" name="_DOB" placeholder="生年月日をご記入ください">
-                <div id="error_DOB" class="p-contactForm-input__error"></div>
-              </div> -->
 
               <div class="p-contactForm-input__item p-contactForm-input__item--input">
                 <label for="email">
                   メールアドレス
                   <span class="p-contactForm-input__required">必須</span>
                 </label>
-                <input type="email" id="email" name="_email" inputmode="email" required="required" value="<?php //echo $_SESSION['_email'] 
-                                                                                                          ?>"
+                <input type="email" id="email" name="_email" inputmode="email" required="required" value="<?php echo $_SESSION['_email']?>"
                   placeholder="メールアドレスをご記入ください">
                 <div id="error_email" class="p-contactForm-input__error"></div>
               </div>
@@ -408,8 +397,7 @@
                 <label for="address">
                   郵便番号
                 </label>
-                <input type="text" id="zipcode" name="_zipcode" maxlength="8" value="<?php //echo $_SESSION['_zipcode'] 
-                                                                                      ?>"
+                <input type="text" id="zipcode" name="_zipcode" maxlength="8" value="<?php echo $_SESSION['_zipcode']?>"
                   placeholder="例：1234567 or 123-4567" onkeyup="AjaxZip3.zip2addr( this,'','_address','_address' );">
               </div>
 
@@ -417,8 +405,7 @@
                 <label for="address">
                   ご住所
                 </label>
-                <input type="text" id="address" name="_address" value="<?php //echo $_SESSION['_address'] 
-                                                                        ?>" placeholder="途中まで郵便番号から自動入力されます。">
+                <input type="text" id="address" name="_address" value="<?php echo $_SESSION['_address']?>" placeholder="途中まで郵便番号から自動入力されます。">
               </div>
 
               <div class="p-contactForm-input__item p-contactForm-input__item--textarea">
@@ -426,10 +413,8 @@
                   お問い合わせ内容
                   <span class="p-contactForm-input__required">必須</span>
                 </label>
-                <textarea id="content" name="_content" required="required" value="<?php //echo $_SESSION['_content'] 
-                                                                                  ?>"
-                  placeholder="お問い合わせのテスト文章をご自由にご記入ください"><?php //echo nl2br($_SESSION['_content']) 
-                                                                                                                                                                ?></textarea>
+                <textarea id="content" name="_content" required="required" value="<?php echo $_SESSION['_content']?>"
+                  placeholder="お問い合わせのテスト文章をご自由にご記入ください"><?php echo nl2br($_SESSION['_content'])?></textarea>
                 <div id="error_content" class="p-contactForm-input__error"></div>
               </div>
 
